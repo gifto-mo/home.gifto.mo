@@ -8,16 +8,21 @@
     body {
       background: #232323;
       margin: 0;
+      padding: 0; /* 保證無裁剪 */
       font-family: 'SF Pro Display', 'Segoe UI', 'Arial', sans-serif;
       color: #fff;
+      overflow-x: auto;
+      overflow-y: visible;
     }
     .container {
       max-width: 720px;
       margin: 0 auto;
-      padding: 32px 8px 0 8px;
+      padding: 32px 32px 80px 32px; /* 上右下左，多留 padding */
       min-height: 100vh;
-      /* 關鍵：確保不裁剪任何光暈 */
-      overflow: visible;
+      box-sizing: border-box;
+      overflow: visible;  /* 保證光暈不裁剪 */
+      position: relative;
+      background: transparent;
     }
     .title {
       font-size: 2.8rem;
@@ -47,9 +52,10 @@
       margin-bottom: 18px;
       flex-wrap: nowrap;
       overflow-x: auto;
-      padding-bottom: 14px;
-      /* 保證光暈不被卡住 */
-      overflow-y: visible;
+      overflow-y: visible !important;
+      padding-bottom: 24px;  /* 下方 padding 加大 */
+      position: relative;
+      background: transparent;
     }
     .product-grid::-webkit-scrollbar {
       height: 10px;
@@ -60,7 +66,6 @@
       border-radius: 8px;
     }
     .card, .music-card {
-      /* 為了發光外擴，不能有 overflow hidden */
       overflow: visible;
       border-radius: 22px;
       box-shadow: 0 2px 14px #1c2127bb;
@@ -75,6 +80,7 @@
       transition: border-color 0.18s, box-shadow 0.18s, transform 0.14s;
       flex: 0 0 144px;
       background: #191e23;
+      z-index: 1;
     }
     .card img {
       width: 120px;
@@ -95,7 +101,6 @@
       margin-bottom: 0;
       white-space: pre-line;
     }
-    /* 統一 hover 光暈，多層散射，完整包圍 */
     .card:hover {
       border-color: #f76876;
       box-shadow:
@@ -105,9 +110,8 @@
         0 8px 28px 0 #1c212755,
         0 2px 10px 0 #0002;
       transform: scale(1.055);
-      z-index: 10;
+      z-index: 20;
     }
-    /* Apple Music 專屬粉紅光暈＋漸層背景 */
     .music-card {
       background: linear-gradient(135deg, #ffb3ba 30%, #f76876 100%);
       box-shadow: 0 4px 24px #d24a6a44, 0 1.5px 0 #f76876;
@@ -141,11 +145,11 @@
         0 6px 32px 0 #f7687699,
         0 2px 10px 0 #0001;
       transform: scale(1.065) rotate(-0.7deg);
-      z-index: 10;
+      z-index: 20;
     }
     @media (max-width: 540px) {
-      .container { max-width: 98vw; }
-      .product-grid { gap: 10px; }
+      .container { max-width: 98vw; padding: 18px 3vw 48px 3vw; }
+      .product-grid { gap: 10px; padding-bottom: 36px; }
       .card, .music-card { width: 60vw; min-width: 110px; padding: 13px 2px 14px 2px; }
       .card img { width: 78px; height: 78px; }
       .music-card img { width: 64px; height: 64px; }
