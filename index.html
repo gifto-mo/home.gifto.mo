@@ -16,6 +16,7 @@
       margin: 0 auto;
       padding: 32px 8px 0 8px;
       min-height: 100vh;
+      /* 關鍵：確保不裁剪任何光暈 */
       overflow: visible;
     }
     .title {
@@ -47,6 +48,8 @@
       flex-wrap: nowrap;
       overflow-x: auto;
       padding-bottom: 14px;
+      /* 保證光暈不被卡住 */
+      overflow-y: visible;
     }
     .product-grid::-webkit-scrollbar {
       height: 10px;
@@ -57,22 +60,21 @@
       border-radius: 8px;
     }
     .card, .music-card {
+      /* 為了發光外擴，不能有 overflow hidden */
+      overflow: visible;
       border-radius: 22px;
+      box-shadow: 0 2px 14px #1c2127bb;
       padding: 22px 8px 18px 8px;
       width: 144px;
       text-align: center;
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: border-color 0.2s, box-shadow 0.3s, transform 0.16s;
-      flex: 0 0 144px;
       border: 2.5px solid transparent;
-      position: relative;
-      overflow: visible;
-    }
-    .card {
+      transition: border-color 0.18s, box-shadow 0.18s, transform 0.14s;
+      flex: 0 0 144px;
       background: #191e23;
-      box-shadow: 0 2px 14px #1c2127bb;
     }
     .card img {
       width: 120px;
@@ -93,23 +95,19 @@
       margin-bottom: 0;
       white-space: pre-line;
     }
+    /* 統一 hover 光暈，多層散射，完整包圍 */
     .card:hover {
       border-color: #f76876;
       box-shadow:
-        0 6px 24px rgba(247, 104, 118, 0.75),
-        0 0 8px rgba(247, 104, 118, 0.6),
-        0 0 16px rgba(247, 104, 118, 0.45),
-        0 0 32px rgba(247, 104, 118, 0.3),
-        0 2px 10px rgba(0, 0, 0, 0.2);
-      transform: scale(1.045);
-      z-index: 2;
+        0 0 0 3px #f76876aa,
+        0 0 10px 3px #f7687688,
+        0 0 36px 10px #f7687633,
+        0 8px 28px 0 #1c212755,
+        0 2px 10px 0 #0002;
+      transform: scale(1.055);
+      z-index: 10;
     }
-    .subtitle {
-      font-size: 1.15rem;
-      font-weight: 400;
-      margin-top: 34px;
-      margin-bottom: 13px;
-    }
+    /* Apple Music 專屬粉紅光暈＋漸層背景 */
     .music-card {
       background: linear-gradient(135deg, #ffb3ba 30%, #f76876 100%);
       box-shadow: 0 4px 24px #d24a6a44, 0 1.5px 0 #f76876;
@@ -121,7 +119,7 @@
       margin-bottom: 16px;
       border-radius: 14px;
       background: #fff;
-      box-shadow: 0 1.5px 10px #ffb3ba66, 0 1px 4px #0001;
+      box-shadow: 0 1.5px 10px #ffb3ba44, 0 1px 4px #0001;
     }
     .music-ch {
       font-size: 1.18rem;
@@ -132,18 +130,18 @@
       margin-top: 0;
       margin-bottom: 0;
       white-space: pre-line;
-      text-shadow: 0 1px 10px #fff4, 0 0.5px 0.5px #f7687644;
+      text-shadow: 0 1px 10px #fff2, 0 0.5px 0.5px #f7687644;
     }
     .music-card:hover {
       border-color: #fff;
       box-shadow:
-        0 8px 32px rgba(255, 255, 255, 0.75),
-        0 0 12px rgba(255, 255, 255, 0.6),
-        0 0 24px rgba(255, 255, 255, 0.4),
-        0 0 48px rgba(255, 255, 255, 0.25),
-        0 2px 10px rgba(0, 0, 0, 0.15);
-      transform: scale(1.065) rotate(-0.5deg);
-      z-index: 2;
+        0 0 0 3px #fff,
+        0 0 18px 3px #fff9,
+        0 0 48px 18px #ffb3ba66,
+        0 6px 32px 0 #f7687699,
+        0 2px 10px 0 #0001;
+      transform: scale(1.065) rotate(-0.7deg);
+      z-index: 10;
     }
     @media (max-width: 540px) {
       .container { max-width: 98vw; }
