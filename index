@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giftomo</title>
+  <style>
+    body {
+      background: #232323;
+      margin: 0;
+      font-family: 'SF Pro Display', 'Segoe UI', 'Arial', sans-serif;
+      color: #fff;
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 32px 8px 0 8px;
+      min-height: 100vh;
+    }
+    .title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      font-family: 'SF Pro Display', 'Segoe UI', 'Arial Black', 'Arial', sans-serif;
+    }
+    .divider {
+      border: none;
+      border-top: 2.5px solid #fff;
+      margin: 0 0 24px 0;
+      opacity: 0.17;
+    }
+    .section-title {
+      font-size: 1.28rem;
+      font-weight: 500;
+      margin-top: 20px;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+    }
+    .product-grid {
+      display: flex;
+      gap: 28px;
+      align-items: flex-end;
+      margin-bottom: 18px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #f76876 #232323;
+      padding-bottom: 14px;
+    }
+    .product-grid::-webkit-scrollbar {
+      height: 10px;
+      background: #232323;
+    }
+    .product-grid::-webkit-scrollbar-thumb {
+      background: #f76876;
+      border-radius: 8px;
+    }
+    .card {
+      background: #191e23;
+      border-radius: 22px;
+      box-shadow: 0 2px 14px #1c2127bb;
+      padding: 22px 8px 18px 8px;
+      width: 144px;
+      text-align: center;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 2.5px solid transparent;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.16s;
+      flex: 0 0 144px;
+    }
+    .card img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 16px;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 1.5px 8px #0003;
+    }
+    .card-ch {
+      font-size: 1.18rem;
+      font-weight: 500;
+      color: #f76876;
+      letter-spacing: 0.2px;
+      line-height: 1.3;
+      margin-top: 0;
+      margin-bottom: 0;
+      white-space: pre-line;
+    }
+    .card:hover {
+      border-color: #f76876;
+      box-shadow: 0 6px 24px #f76876bb, 0 2px 10px #0002;
+      z-index: 2;
+      transform: scale(1.045);
+    }
+    .subtitle {
+      font-size: 1.15rem;
+      font-weight: 400;
+      margin-top: 34px;
+      margin-bottom: 13px;
+    }
+    .music-card {
+      background: linear-gradient(133deg, #ff9da8 40%, #f76876 100%);
+      border-radius: 22px;
+      box-shadow: 0 4px 24px #d24a6a44, 0 1.5px 0 #f76876;
+      padding: 22px 8px 18px 8px;
+      width: 144px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 10px;
+      border: 2.5px solid transparent;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.16s;
+      flex: 0 0 144px;
+    }
+    .music-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 16px;
+      border-radius: 14px;
+      background: #fff;
+    }
+    .music-ch {
+      font-size: 1.18rem;
+      font-weight: 500;
+      color: #f76876;
+      letter-spacing: 0.2px;
+      line-height: 1.3;
+      margin-top: 0;
+      margin-bottom: 0;
+      white-space: pre-line;
+    }
+    .music-card:hover {
+      border-color: #fff;
+      box-shadow: 0 6px 24px #fff8, 0 2px 10px #0002;
+      z-index: 2;
+      transform: scale(1.045);
+    }
+    @media (max-width: 540px) {
+      .container { max-width: 98vw; }
+      .product-grid { gap: 10px; }
+      .card, .music-card { width: 60vw; min-width: 110px; padding: 13px 2px 14px 2px; }
+      .card img { width: 78px; height: 78px; }
+      .music-card img { width: 64px; height: 64px; }
+      .card-ch, .music-ch { font-size: 1.01rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">Gifto.Mo</div>
+    <hr class="divider">
+    <div class="section-title">Apple Gift Card</div>
+    <div class="product-grid">
+      <!-- 國區 -->
+      <div class="card">
+        <img src="https://你的github.io/專案/images/china.png" alt="國區 Apple 禮品卡">
+        <div class="card-ch">國區 Apple<br>禮品卡</div>
+      </div>
+      <!-- 港區 -->
+      <div class="card">
+        <img src="https://你的github.io/專案/images/hk.png" alt="港區 Apple 禮品卡">
+        <div class="card-ch">港區 Apple<br>禮品卡</div>
+      </div>
+      <!-- 日區 -->
+      <div class="card">
+        <img src="https://你的github.io/專案/images/japan.png" alt="日區 Apple 禮品卡">
+        <div class="card-ch">日區 Apple<br>禮品卡</div>
+      </div>
+      <!-- 美區 -->
+      <div class="card">
+        <img src="https://你的github.io/專案/images/us.png" alt="美區 Apple 禮品卡">
+        <div class="card-ch">美區 Apple<br>禮品卡</div>
+      </div>
+    </div>
+    <div class="subtitle">Other Product</div>
+    <div class="product-grid">
+      <!-- Apple Music -->
+      <div class="music-card">
+        <img src="https://你的github.io/專案/images/music.png" alt="Apple Music 會員">
+        <div class="music-ch">Apple Music<br>會員</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
