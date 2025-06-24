@@ -10,8 +10,7 @@
       margin: 0; padding: 0;
       font-family: 'SF Pro Display','Segoe UI','Arial',sans-serif;
       color: #fff;
-      overflow-x: auto;
-      overflow-y: visible;
+      overflow-x: auto; overflow-y: visible;
     }
     .container {
       max-width: 720px;
@@ -48,35 +47,33 @@
       padding: 22px 8px 18px; background: #191e23;
       border-radius: 22px; border: 2px solid transparent;
       text-align: center; cursor: pointer;
-      transition:
-        border-color 0.2s ease,
-        transform 0.2s ease; /* 只留圖片 transform */
+      transition: border-color .2s, transform .2s;
     }
     .card img, .music-card img {
       width: 120px; height: 120px;
       border-radius: 16px; object-fit: contain;
       background: #fff;
-      transition: transform 0.2s ease;
+      transition: transform .2s ease-in-out;
     }
+    /* 标签文字：更大、更粗、下移 */
     .card-ch, .music-ch {
-      margin: 0; padding: 0;
-      font-size: 1.18rem; font-weight: 500;
-      color: #fff; line-height: 1.3;
+      margin: 12px 0 0 0;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
     }
-
-    /* 卡片 hover：微白邊且圖片放大 */
+    /* 卡片 hover：白边 + 图片放大 */
     .card:hover, .music-card:hover {
       border-color: rgba(255,255,255,0.8);
     }
     .card:hover img, .music-card:hover img {
       transform: scale(1.12);
     }
-
-    /* Apple Music 卡片專用漸層 */
+    /* Apple Music 渐层背景 */
     .music-card {
       background: linear-gradient(135deg,#ffb3ba 30%,#f76876 100%);
     }
-
     @media (max-width: 540px) {
       .container { padding: 40px 3vw 60px 3vw; }
       .product-grid { gap: 10px; padding-bottom: 36px; }
@@ -87,10 +84,8 @@
       .card img, .music-card img {
         width: 78px; height: 78px;
       }
-      .card-ch, .music-ch { font-size: 1.01rem; }
-      .section-title, .subtitle {
-        font-size: 1.4rem;
-      }
+      .card-ch, .music-ch { font-size: 1.1rem; margin-top: 10px; }
+      .section-title, .subtitle { font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -105,7 +100,7 @@
         <div class="card-ch">國區 Apple<br>禮品卡</div>
       </div>
       <div class="card">
-        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/hk.png" alt" alt="港區 Apple 禮品卡">
+        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/hk.png" alt="港區 Apple 禮品卡">
         <div class="card-ch">港區 Apple<br>禮品卡</div>
       </div>
       <div class="card">
@@ -117,7 +112,6 @@
         <div class="card-ch">美區 Apple<br>禮品卡</div>
       </div>
     </div>
-
     <div class="subtitle">Other Product</div>
     <div class="product-grid">
       <div class="music-card">
