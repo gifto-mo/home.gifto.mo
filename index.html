@@ -16,6 +16,7 @@
       margin: 0 auto;
       padding: 32px 8px 0 8px;
       min-height: 100vh;
+      overflow: visible;
     }
     .title {
       font-size: 2.8rem;
@@ -45,8 +46,6 @@
       margin-bottom: 18px;
       flex-wrap: nowrap;
       overflow-x: auto;
-      scrollbar-width: thin;
-      scrollbar-color: #f76876 #232323;
       padding-bottom: 14px;
     }
     .product-grid::-webkit-scrollbar {
@@ -57,20 +56,23 @@
       background: #f76876;
       border-radius: 8px;
     }
-    .card {
-      background: #191e23;
+    .card, .music-card {
       border-radius: 22px;
-      box-shadow: 0 2px 14px #1c2127bb;
       padding: 22px 8px 18px 8px;
       width: 144px;
       text-align: center;
-      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
-      border: 2.5px solid transparent;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.16s;
+      transition: border-color 0.2s, box-shadow 0.3s, transform 0.16s;
       flex: 0 0 144px;
+      border: 2.5px solid transparent;
+      position: relative;
+      overflow: visible;
+    }
+    .card {
+      background: #191e23;
+      box-shadow: 0 2px 14px #1c2127bb;
     }
     .card img {
       width: 120px;
@@ -93,9 +95,14 @@
     }
     .card:hover {
       border-color: #f76876;
-      box-shadow: 0 6px 24px #f76876bb, 0 2px 10px #0002;
-      z-index: 2;
+      box-shadow:
+        0 6px 24px rgba(247, 104, 118, 0.75),
+        0 0 8px rgba(247, 104, 118, 0.6),
+        0 0 16px rgba(247, 104, 118, 0.45),
+        0 0 32px rgba(247, 104, 118, 0.3),
+        0 2px 10px rgba(0, 0, 0, 0.2);
       transform: scale(1.045);
+      z-index: 2;
     }
     .subtitle {
       font-size: 1.15rem;
@@ -105,18 +112,7 @@
     }
     .music-card {
       background: linear-gradient(135deg, #ffb3ba 30%, #f76876 100%);
-      border-radius: 22px;
       box-shadow: 0 4px 24px #d24a6a44, 0 1.5px 0 #f76876;
-      padding: 22px 8px 18px 8px;
-      width: 144px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 10px;
-      border: 2.5px solid transparent;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.16s;
-      flex: 0 0 144px;
     }
     .music-card img {
       width: 100px;
@@ -140,9 +136,14 @@
     }
     .music-card:hover {
       border-color: #fff;
-      box-shadow: 0 8px 32px #fff8, 0 2px 10px #0002;
-      z-index: 2;
+      box-shadow:
+        0 8px 32px rgba(255, 255, 255, 0.75),
+        0 0 12px rgba(255, 255, 255, 0.6),
+        0 0 24px rgba(255, 255, 255, 0.4),
+        0 0 48px rgba(255, 255, 255, 0.25),
+        0 2px 10px rgba(0, 0, 0, 0.15);
       transform: scale(1.065) rotate(-0.5deg);
+      z-index: 2;
     }
     @media (max-width: 540px) {
       .container { max-width: 98vw; }
