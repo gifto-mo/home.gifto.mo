@@ -92,27 +92,30 @@
       box-shadow: 0 2px 18px #fff9; transform: scale(1.1);
     }
 
-    /* —— 手機響應式修正 —— */
+    /* —— 手機優先精細調整 —— */
     @media (max-width: 600px) {
+      .container { padding: 22px 0 36px 0; }
+      .section-title, .subtitle { font-size: 1.16rem; }
+      .product-grid {
+        gap: 12px;
+        padding: 0 14px 20px 14px;
+      }
+      .card, .music-card {
+        flex: 0 0 78vw;
+        width: 78vw;
+        max-width: 260px;
+        min-width: 135px;
+        padding: 13px 4px 14px 4px;
+      }
+      .card img, .music-card img {
+        width: 60px; height: 60px;
+      }
+      .card-ch, .music-ch {
+        font-size: 1rem; margin-top: 8px;
+      }
       .pay-title { font-size: 1rem; }
       .pay-icons { gap: 14px; }
       .pay-icons img { width: 34px; height: 34px; padding: 4px; }
-    }
-    @media (max-width: 540px) {
-      .container { padding: 40px 3vw 60px 3vw; }
-      .section-title, .subtitle { font-size: 1.4rem; }
-      .product-grid { gap: 16px; padding-bottom: 32px; }
-      .card, .music-card {
-        flex: 0 0 82vw;    /* 手機上卡片寬度約 82% 螢幕 */
-        width: 82vw;
-        padding: 16px 4px 14px;
-      }
-      .card img, .music-card img {
-        width: 64px; height: 64px;
-      }
-      .card-ch, .music-ch {
-        font-size: 1.1rem; margin-top: 8px;
-      }
     }
   </style>
 </head>
