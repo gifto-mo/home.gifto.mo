@@ -83,7 +83,7 @@
       white-space: pre-line;
     }
 
-    /* ✅ 聯絡我們表單寬度 75%、置中 */
+    /* ✅ 聯絡我們表單寬度 75%、置中，並修正超界問題 */
     .contact-form-wrap {
       width: 75%;
       margin: 40px auto 0 auto;
@@ -114,6 +114,7 @@
 
     .contact-form input,
     .contact-form textarea {
+      box-sizing: border-box; /* ✅ 關鍵：防止超界 */
       background: #232323;
       color: #fff;
       border: 1.5px solid #3a3a3a;
@@ -195,7 +196,6 @@
       color: #63646c;
       margin-top: 4px;
     }
-
   </style>
 </head>
 <body>
