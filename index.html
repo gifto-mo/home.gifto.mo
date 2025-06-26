@@ -201,29 +201,77 @@
       color: #63646c;
       margin-top: 4px;
     }
-    .contact-btn {
-      display: inline-block;
-      margin: 18px auto 0 auto;
-      padding: 0.7em 2.2em;
-      font-size: 1rem;
-      font-weight: 500;
+    .contact-form-wrap {
+      margin: 28px auto 0 auto;
+      max-width: 380px;
+      padding: 22px 20px 18px 20px;
+      background: #181818;
+      border-radius: 18px;
+      box-shadow: 0 4px 18px #0002;
+    }
+    .contact-form-title {
+      font-size: 1.13rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
       color: #fff;
-      background: #323232;
-      border: none;
-      border-radius: 21px;
-      letter-spacing: 0.06em;
-      cursor: pointer;
-      transition: background 0.18s, color 0.16s, box-shadow 0.18s;
-      box-shadow: 0 2px 12px #0001;
-      outline: none;
+      margin-bottom: 16px;
       text-align: center;
       font-family: inherit;
-      text-decoration: none;
     }
-    .contact-btn:hover, .contact-btn:focus {
-      background: #444;
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+    .contact-form label {
+      font-size: 0.97rem;
+      font-weight: 500;
+      color: #bbb;
+      text-align: left;
+      margin-bottom: 3px;
+      letter-spacing: 0.03em;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      background: #232323;
       color: #fff;
-      box-shadow: 0 8px 24px #0002;
+      border: 1.5px solid #3a3a3a;
+      border-radius: 10px;
+      padding: 10px 11px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border 0.15s, box-shadow 0.16s;
+      outline: none;
+      resize: none;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border: 1.5px solid #f76876;
+      box-shadow: 0 2px 10px #f7687622;
+    }
+    .contact-form textarea {
+      min-height: 72px;
+      max-height: 180px;
+    }
+    .contact-form button {
+      background: #f76876;
+      color: #fff;
+      border: none;
+      border-radius: 21px;
+      padding: 0.7em 2.2em;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      margin-top: 6px;
+      cursor: pointer;
+      transition: background 0.18s, color 0.16s, box-shadow 0.18s;
+      box-shadow: 0 2px 12px #f7687640;
+      font-family: inherit;
+    }
+    .contact-form button:hover, .contact-form button:focus {
+      background: #d24a6a;
+      color: #fff;
+      box-shadow: 0 8px 24px #f7687622;
     }
     @media (max-width: 540px) {
       .container { max-width: 98vw; padding-top: 22px;}
@@ -242,7 +290,7 @@
       .footer { padding: 22px 0 10px 0; }
       .footer-inner { font-size: 0.89rem; }
       .footer-small { font-size: 0.78rem; }
-      .contact-btn { font-size: 0.98rem; padding: 0.7em 1.4em; margin-top: 14px;}
+      .contact-form-wrap { padding: 12px 4vw 12px 4vw; }
     }
   </style>
 </head>
@@ -306,7 +354,18 @@
         <span style="margin-left:8px;">WeChat：<b>giftomo_macau</b></span>，
         <span>Gmail：<a href="mailto:gifto.mo.help@gmail.com" style="color:#bbb;text-decoration:underline;">gifto.mo.help@gmail.com</a></span>
       </div>
-      <a class="contact-btn" href="https://formsubmit.co/gifto.mo.mail@gmail.com" target="_blank" rel="noopener" title="聯絡我們">聯絡我們</a>
+      <div class="contact-form-wrap">
+        <div class="contact-form-title">聯絡我們</div>
+        <form class="contact-form" action="https://formsubmit.co/gifto.mo.mail@gmail.com" method="POST">
+          <label for="nickname">暱稱</label>
+          <input type="text" id="nickname" name="暱稱" required maxlength="32" placeholder="請輸入您的暱稱">
+          <label for="email">電郵</label>
+          <input type="email" id="email" name="電郵" required maxlength="64" placeholder="請輸入您的電郵">
+          <label for="message">查詢內容</label>
+          <textarea id="message" name="查詢內容" required maxlength="400" placeholder="請輸入您的問題或查詢"></textarea>
+          <button type="submit">送出查詢</button>
+        </form>
+      </div>
     </div>
   </footer>
 </body>
