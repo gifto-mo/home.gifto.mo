@@ -180,6 +180,27 @@
     .payment-icon:hover {
       box-shadow: 0 4px 18px #0003;
     }
+    .footer {
+      width: 100%;
+      margin-top: 64px;
+      padding: 36px 0 22px 0;
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      font-family: inherit;
+    }
+    .footer-inner {
+      color: #9fa2ad;
+      font-size: 0.98rem;
+      text-align: center;
+      line-height: 1.7;
+      max-width: 98vw;
+    }
+    .footer-small {
+      font-size: 0.87rem;
+      color: #63646c;
+      margin-top: 4px;
+    }
     @media (max-width: 540px) {
       .container { max-width: 98vw; padding-top: 22px;}
       .logo-wrap { margin-bottom: 14px; }
@@ -194,6 +215,9 @@
       .payment-title { font-size: 0.99rem; margin-bottom: 8px; }
       .payment-wrap { margin: 26px 0 12px 0; }
       .section-title, .subtitle { font-size: 1rem; margin-top: 14px; margin-bottom: 10px;}
+      .footer { padding: 22px 0 10px 0; }
+      .footer-inner { font-size: 0.89rem; }
+      .footer-small { font-size: 0.78rem; }
     }
   </style>
 </head>
@@ -246,5 +270,19 @@
       </div>
     </div>
   </div>
+  <footer class="footer">
+    <div class="footer-inner">
+      © 2025 Gifto.Mo. All rights reserved.
+      <div class="footer-small" style="margin-top:8px;">
+        本網站與 Apple Inc.、Alipay、WeChat Pay、mPay 無任何關聯，Apple、Apple Music、Alipay、WeChat Pay、mPay 均為其公司註冊商標，僅供產品標示使用。
+      </div>
+      <div class="footer-small" style="margin-top:10px;">
+        聯絡方式：
+        <span style="margin-left:8px;">WeChat：<b>giftomo_macau</b></span>，
+        <span>Gmail：<a href="mailto:gifto.mo.help@gmail.com" style="color:#bbb;text-decoration:underline;">gifto.mo.help@gmail.com</a></span>，
+        <span>WhatsApp：<a href="https://wa.me/8869560742123" style="color:#bbb;text-decoration:underline;">+886 9560742123</a></span>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
