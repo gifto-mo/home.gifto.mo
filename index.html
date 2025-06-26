@@ -1,121 +1,127 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Giftomo</title>
   <style>
     body {
       background: #232323;
-      margin: 0; padding: 0;
-      font-family: 'SF Pro Display','Segoe UI','Arial',sans-serif;
+      margin: 0;
+      font-family: 'SF Pro Display', 'Segoe UI', 'Arial', sans-serif;
       color: #fff;
-      overflow-x: auto; overflow-y: visible;
     }
     .container {
       max-width: 720px;
       margin: 0 auto;
-      padding: 60px 32px 80px 32px;
-      box-sizing: border-box;
+      padding: 32px 8px 0 8px;
+      min-height: 100vh;
+      overflow: visible;
     }
     .title {
-      font-size: 2.8rem; font-weight: 900;
-      text-align: center; letter-spacing: 2px;
+      font-size: 2.8rem;
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: 2px;
       margin-bottom: 16px;
+      font-family: 'SF Pro Display', 'Segoe UI', 'Arial Black', 'Arial', sans-serif;
     }
     .divider {
-      border: none; border-top: 2.5px solid #fff;
-      margin: 0 0 24px; opacity: 0.17;
+      border: none;
+      border-top: 2.5px solid #fff;
+      margin: 0 0 24px 0;
+      opacity: 0.17;
     }
     .section-title {
-      font-size: 1.6rem; font-weight: 700;
-      margin: 20px 0 18px; letter-spacing: 1px;
-    }
-    .subtitle {
-      font-size: 1.6rem; font-weight: 700;
-      margin: 34px 0 13px; letter-spacing: 1px;
+      font-size: 1.28rem;
+      font-weight: 500;
+      margin-top: 20px;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
     }
     .product-grid {
-      display: flex; gap: 28px; align-items: flex-end;
-      overflow-x: auto; overflow-y: visible; padding-bottom: 24px;
-      scrollbar-color: #fff #232323; scrollbar-width: thin;
+      display: flex;
+      gap: 28px;
+      align-items: flex-end;
+      margin-bottom: 18px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 14px;
+      overflow-y: visible;
     }
     .product-grid::-webkit-scrollbar {
-      height: 10px; background: #232323;
+      height: 10px;
+      background: #232323;
     }
     .product-grid::-webkit-scrollbar-thumb {
-      background: #fff; border-radius: 8px;
+      background: #f76876;
+      border-radius: 8px;
     }
     .card, .music-card {
-      flex: 0 0 144px; width: 144px;
-      padding: 22px 8px 18px; background: #191e23;
-      border-radius: 22px; border: 2px solid transparent;
-      text-align: center; cursor: pointer;
-      transition: border-color .2s, transform .2s;
+      overflow: visible;
+      border-radius: 22px;
+      box-shadow: 0 2px 14px #1c2127bb;
+      padding: 22px 8px 18px 8px;
+      width: 144px;
+      text-align: center;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 2.5px solid transparent;
+      flex: 0 0 144px;
+      background: #191e23;
     }
-    .card img, .music-card img {
-      width: 120px; height: 120px;
-      border-radius: 16px; object-fit: contain;
-      background: #fff; transition: transform .2s ease-in-out;
+    .card img {
+      width: 164px;
+      height: 164px;
+      object-fit: contain;
+      margin-bottom: 16px;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 1.5px 8px #0003;
     }
-    .card-ch, .music-ch {
-      margin: 12px 0 0; font-size: 1.3rem; font-weight: 700;
-      color: #fff; line-height: 1.2;
-    }
-    .card:hover, .music-card:hover {
-      border-color: rgba(255,255,255,0.8);
-    }
-    .card:hover img, .music-card:hover img {
-      transform: scale(1.12);
+    .card-ch {
+      font-size: 1.18rem;
+      font-weight: 700;  /* 粗體 */
+      color: #fff;       /* 白色 */
+      letter-spacing: 0.2px;
+      line-height: 1.3;
+      margin-top: 0;
+      margin-bottom: 0;
+      white-space: pre-line;
     }
     .music-card {
-      background: linear-gradient(135deg,#ffb3ba 30%,#f76876 100%);
+      background: linear-gradient(135deg, #ffb3ba 30%, #f76876 100%);
+      box-shadow: 0 4px 24px #d24a6a44, 0 1.5px 0 #f76876;
     }
-    .pay-support {
-      margin: 44px auto 0; text-align: center;
+    .music-card img {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      margin-bottom: 16px;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 1.5px 10px #ffb3ba44, 0 1px 4px #0001;
     }
-    .pay-title {
-      color: #fff; font-size: 1.18rem; font-weight: 700;
-      letter-spacing: 2px; margin-bottom: 14px;
+    .music-ch {
+      font-size: 1.18rem;
+      font-weight: 700;  /* 粗體 */
+      color: #fff;       /* 白色 */
+      letter-spacing: 0.2px;
+      line-height: 1.3;
+      margin-top: 0;
+      margin-bottom: 0;
+      white-space: pre-line;
+      text-shadow: 0 1px 10px #fff2, 0 0.5px 0.5px #f7687644;
     }
-    .pay-icons {
-      display: flex; justify-content: center;
-      gap: 24px; flex-wrap: wrap; align-items: center;
-    }
-    .pay-icons img {
-      width: 48px; height: 48px; border-radius: 12px;
-      background: #fff; padding: 6px;
-      transition: box-shadow .2s, transform .2s;
-      box-shadow: 0 2px 8px #0002; cursor: pointer;
-    }
-    .pay-icons img:hover {
-      box-shadow: 0 2px 18px #fff9; transform: scale(1.1);
-    }
-
-    /* —— 手機優先精細調整 —— */
-    @media (max-width: 600px) {
-      .container { padding: 22px 0 36px 0; }
-      .section-title, .subtitle { font-size: 1.16rem; }
-      .product-grid {
-        gap: 12px;
-        padding: 0 14px 20px 14px;
-      }
-      .card, .music-card {
-        flex: 0 0 78vw;
-        width: 78vw;
-        max-width: 260px;
-        min-width: 135px;
-        padding: 13px 4px 14px 4px;
-      }
-      .card img, .music-card img {
-        width: 60px; height: 60px;
-      }
-      .card-ch, .music-ch {
-        font-size: 1rem; margin-top: 8px;
-      }
-      .pay-title { font-size: 1rem; }
-      .pay-icons { gap: 14px; }
-      .pay-icons img { width: 34px; height: 34px; padding: 4px; }
+    @media (max-width: 540px) {
+      .container { max-width: 98vw; }
+      .product-grid { gap: 10px; }
+      .card, .music-card { width: 60vw; min-width: 110px; padding: 13px 2px 14px 2px; }
+      .card img { width: 110px; height: 110px; }
+      .music-card img { width: 90px; height: 90px; }
+      .card-ch, .music-ch { font-size: 1.01rem; }
     }
   </style>
 </head>
@@ -124,40 +130,34 @@
     <div class="title">Gifto.Mo</div>
     <hr class="divider">
     <div class="section-title">Apple Gift Card</div>
-
     <div class="product-grid">
+      <!-- 國區 -->
       <div class="card">
         <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/china.png" alt="國區 Apple 禮品卡">
         <div class="card-ch">國區 Apple<br>禮品卡</div>
       </div>
+      <!-- 港區 -->
       <div class="card">
         <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/hk.png" alt="港區 Apple 禮品卡">
         <div class="card-ch">港區 Apple<br>禮品卡</div>
       </div>
+      <!-- 日區 -->
       <div class="card">
         <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/japan.png" alt="日區 Apple 禮品卡">
         <div class="card-ch">日區 Apple<br>禮品卡</div>
       </div>
+      <!-- 美區 -->
       <div class="card">
         <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us.png" alt="美區 Apple 禮品卡">
         <div class="card-ch">美區 Apple<br>禮品卡</div>
       </div>
     </div>
-
     <div class="subtitle">Other Product</div>
     <div class="product-grid">
+      <!-- Apple Music -->
       <div class="music-card">
         <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us_applemusic.png" alt="Apple Music 會員">
         <div class="music-ch">Apple Music<br>會員</div>
-      </div>
-    </div>
-
-    <div class="pay-support">
-      <div class="pay-title">支持支付方式</div>
-      <div class="pay-icons">
-        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/alipay.png" alt="Alipay">
-        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/wechatpay.png" alt="WeChat Pay">
-        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/mpay.png" alt="mPay">
       </div>
     </div>
   </div>
