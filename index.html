@@ -8,49 +8,83 @@
     body {
       background: #232323;
       margin: 0;
-      font-family: 'SF Pro Display', 'Segoe UI', 'Arial', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text',
+                   'PingFang TC', 'PingFang SC', 'PingFang HK', 'Heiti TC', 'Heiti SC',
+                   'Microsoft JhengHei', Arial, sans-serif;
       color: #fff;
     }
     .container {
       max-width: 720px;
       margin: 0 auto;
-      padding: 32px 8px 0 8px;
+      padding: 48px 10px 0 10px;
       min-height: 100vh;
-      overflow: visible;
+      display: flex;
+      flex-direction: column;
+    }
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 26px;
+      margin-top: 2px;
+    }
+    .logo-link {
+      display: inline-block;
+      border-radius: 24px;
+      transition: box-shadow 0.16s;
+    }
+    .logo-link:focus-visible {
+      outline: 2px solid #f76876;
+      outline-offset: 3px;
+    }
+    .logo-img {
+      width: 96px;
+      height: 96px;
+      border-radius: 24px;
+      background: #fff;
+      object-fit: cover;
+      box-shadow: 0 2px 18px #0003;
+      transition: box-shadow 0.16s;
+      display: block;
+    }
+    .logo-link:hover .logo-img,
+    .logo-img:hover {
+      box-shadow: 0 8px 28px #0004;
     }
     .title {
-      font-size: 2.8rem;
+      font-size: 2.7rem;
       font-weight: 900;
+      letter-spacing: 1.5px;
+      margin-bottom: 38px;
       text-align: center;
-      letter-spacing: 2px;
-      margin-bottom: 16px;
-      font-family: 'SF Pro Display', 'Segoe UI', 'Arial Black', 'Arial', sans-serif;
+      line-height: 1.08;
+      text-shadow: none;
+      font-family: inherit;
     }
-    .divider {
-      border: none;
-      border-top: 2.5px solid #fff;
-      margin: 0 0 24px 0;
-      opacity: 0.17;
-    }
-    .section-title {
-      font-size: 1.28rem;
-      font-weight: 500;
-      margin-top: 20px;
+    .section-title, .subtitle {
+      font-size: 1.27rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      margin-top: 38px;
       margin-bottom: 18px;
-      letter-spacing: 1px;
+      line-height: 1.18;
+      text-shadow: none;
+      color: #fff;
+      padding-left: 2px;
+      font-family: inherit;
     }
     .product-grid {
       display: flex;
       gap: 28px;
       align-items: flex-end;
-      margin-bottom: 18px;
+      margin-bottom: 36px;
       flex-wrap: nowrap;
       overflow-x: auto;
-      padding-bottom: 14px;
+      padding-bottom: 20px;
       overflow-y: visible;
     }
     .product-grid::-webkit-scrollbar {
-      height: 10px;
+      height: 8px;
       background: #232323;
     }
     .product-grid::-webkit-scrollbar-thumb {
@@ -58,9 +92,9 @@
       border-radius: 8px;
     }
     .card, .music-card {
-      overflow: visible;
-      border-radius: 22px;
-      box-shadow: 0 2px 14px #1c2127bb;
+      border: none;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px #0001;
       padding: 22px 8px 18px 8px;
       width: 144px;
       text-align: center;
@@ -68,67 +102,110 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      border: 2.5px solid transparent;
       flex: 0 0 144px;
       background: #191e23;
-    }
-    .card img {
-      width: 164px;
-      height: 164px;
-      object-fit: contain;
-      margin-bottom: 16px;
-      border-radius: 16px;
-      background: #fff;
-      box-shadow: 0 1.5px 8px #0003;
-    }
-    .card-ch {
-      font-size: 1.18rem;
-      font-weight: 700;  /* 粗體 */
-      color: #fff;       /* 白色 */
-      letter-spacing: 0.2px;
-      line-height: 1.3;
-      margin-top: 0;
-      margin-bottom: 0;
-      white-space: pre-line;
+      transition: box-shadow 0.18s, transform 0.18s;
+      font-family: inherit;
     }
     .music-card {
       background: linear-gradient(135deg, #ffb3ba 30%, #f76876 100%);
-      box-shadow: 0 4px 24px #d24a6a44, 0 1.5px 0 #f76876;
+      box-shadow: 0 6px 24px #d24a6a44, 0 2px 10px #0001;
     }
-    .music-card img {
+    .card img, .music-card img {
+      display: block;
+      margin: 0 auto 16px auto;
+      background: #fff;
+      border-radius: 13px;
+      object-fit: contain;
       width: 140px;
       height: 140px;
-      object-fit: contain;
-      margin-bottom: 16px;
-      border-radius: 14px;
-      background: #fff;
-      box-shadow: 0 1.5px 10px #ffb3ba44, 0 1px 4px #0001;
+      box-shadow: 0 2px 12px #0001;
+      transition: transform 0.18s cubic-bezier(.48,1.38,.49,.99);
     }
-    .music-ch {
-      font-size: 1.18rem;
-      font-weight: 700;  /* 粗體 */
-      color: #fff;       /* 白色 */
-      letter-spacing: 0.2px;
-      line-height: 1.3;
+    .card-ch, .music-ch {
+      font-size: 1.10rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.01em;
       margin-top: 0;
       margin-bottom: 0;
       white-space: pre-line;
-      text-shadow: 0 1px 10px #fff2, 0 0.5px 0.5px #f7687644;
+      text-shadow: none;
+      font-family: inherit;
+    }
+    .card:hover, .music-card:hover {
+      box-shadow: 0 12px 34px #0003;
+      transform: translateY(-2px);
+    }
+    .card:hover img, .music-card:hover img {
+      transform: scale(1.06);
+    }
+    .payment-wrap {
+      margin: 52px 0 28px 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: inherit;
+    }
+    .payment-title {
+      font-size: 1.12rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 1px;
+      opacity: 0.93;
+      margin-bottom: 16px;
+      text-align: center;
+      font-family: inherit;
+    }
+    .payment-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      flex-wrap: wrap;
+      font-family: inherit;
+    }
+    .payment-icon {
+      width: 48px;
+      height: 48px;
+      display: inline-block;
+      background: #fff;
+      border-radius: 13px;
+      box-shadow: 0 1.5px 8px #0002;
+      object-fit: contain;
+      padding: 6px;
+      transition: box-shadow 0.16s;
+    }
+    .payment-icon:hover {
+      box-shadow: 0 4px 18px #0003;
     }
     @media (max-width: 540px) {
-      .container { max-width: 98vw; }
-      .product-grid { gap: 10px; }
+      .container { max-width: 98vw; padding-top: 22px;}
+      .logo-wrap { margin-bottom: 14px; }
+      .logo-img { width: 62px; height: 62px; }
+      .title { font-size: 1.36rem; margin-bottom: 24px;}
+      .product-grid { gap: 10px; margin-bottom: 18px; padding-bottom: 9px; }
       .card, .music-card { width: 60vw; min-width: 110px; padding: 13px 2px 14px 2px; }
-      .card img { width: 110px; height: 110px; }
-      .music-card img { width: 90px; height: 90px; }
-      .card-ch, .music-ch { font-size: 1.01rem; }
+      .card img, .music-card img { width: 90px; height: 90px; }
+      .card-ch, .music-ch { font-size: 0.99rem; }
+      .payment-row { gap: 12px; }
+      .payment-icon { width: 38px; height: 38px; padding: 4px; }
+      .payment-title { font-size: 0.99rem; margin-bottom: 8px; }
+      .payment-wrap { margin: 26px 0 12px 0; }
+      .section-title, .subtitle { font-size: 1rem; margin-top: 14px; margin-bottom: 10px;}
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- LOGO 區塊（可點擊回首頁） -->
+    <div class="logo-wrap">
+      <a class="logo-link" href="https://gifto-mo.github.io/home.gitfmo.mo./" title="回首頁">
+        <img class="logo-img" src="https://github.com/gifto-mo/home.gitfmo.mo./raw/main/logo.JPG" alt="Gifto.Mo Logo">
+      </a>
+    </div>
     <div class="title">Gifto.Mo</div>
-    <hr class="divider">
     <div class="section-title">Apple Gift Card</div>
     <div class="product-grid">
       <!-- 國區 -->
@@ -158,6 +235,14 @@
       <div class="music-card">
         <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us_applemusic.png" alt="Apple Music 會員">
         <div class="music-ch">Apple Music<br>會員</div>
+      </div>
+    </div>
+    <div class="payment-wrap">
+      <div class="payment-title">支持的付款方式</div>
+      <div class="payment-row">
+        <img class="payment-icon" src="https://github.com/gifto-mo/home.gitfmo.mo./raw/main/alipay.png" alt="Alipay">
+        <img class="payment-icon" src="https://github.com/gifto-mo/home.gitfmo.mo./raw/main/wechatpay.png" alt="Wechat Pay">
+        <img class="payment-icon" src="https://github.com/gifto-mo/home.gitfmo.mo./raw/main/mpay.png" alt="mPay">
       </div>
     </div>
   </div>
