@@ -180,29 +180,9 @@
     .payment-icon:hover {
       box-shadow: 0 4px 18px #0003;
     }
-    .footer {
-      width: 100%;
-      margin-top: 64px;
-      padding: 36px 0 22px 0;
-      background: transparent;
-      display: flex;
-      justify-content: center;
-      font-family: inherit;
-    }
-    .footer-inner {
-      color: #9fa2ad;
-      font-size: 0.98rem;
-      text-align: center;
-      line-height: 1.7;
-      max-width: 98vw;
-    }
-    .footer-small {
-      font-size: 0.87rem;
-      color: #63646c;
-      margin-top: 4px;
-    }
+    /* --- 聯絡表單樣式照舊 --- */
     .contact-form-wrap {
-      margin: 28px auto 0 auto;
+      margin: 32px auto 0 auto;
       max-width: 380px;
       padding: 22px 20px 18px 20px;
       background: #181818;
@@ -334,6 +314,7 @@
         <div class="music-ch">Apple Music<br>會員</div>
       </div>
     </div>
+    <!-- 支付方式區塊 -->
     <div class="payment-wrap">
       <div class="payment-title">支持的付款方式</div>
       <div class="payment-row">
@@ -341,19 +322,7 @@
         <img class="payment-icon" src="https://github.com/gifto-mo/home.gitfmo.mo./raw/main/wechatpay.png" alt="Wechat Pay">
         <img class="payment-icon" src="https://github.com/gifto-mo/home.gitfmo.mo./raw/main/mpay.png" alt="mPay">
       </div>
-    </div>
-  </div>
-  <footer class="footer">
-    <div class="footer-inner">
-      © 2025 Gifto.Mo. All rights reserved.
-      <div class="footer-small" style="margin-top:8px;">
-        本網站與 Apple Inc.、Alipay、WeChat Pay、mPay 無任何關聯，Apple、Apple Music、Alipay、WeChat Pay、mPay 均為其公司註冊商標，僅供產品標示使用。
-      </div>
-      <div class="footer-small" style="margin-top:10px;">
-        聯絡方式：
-        <span style="margin-left:8px;">WeChat：<b>giftomo_macau</b></span>，
-        <span>Gmail：<a href="mailto:gifto.mo.help@gmail.com" style="color:#bbb;text-decoration:underline;">gifto.mo.help@gmail.com</a></span>
-      </div>
+      <!-- 聯絡我們表單(放在付款方式下) -->
       <div class="contact-form-wrap">
         <div class="contact-form-title">聯絡我們</div>
         <form class="contact-form" action="https://formsubmit.co/gifto.mo.mail@gmail.com" method="POST">
@@ -368,6 +337,21 @@
         </form>
       </div>
     </div>
+  </div>
+  <footer class="footer">
+    <div class="footer-inner">
+      © 2025 Gifto.Mo. All rights reserved.
+      <div class="footer-small" style="margin-top:8px;">
+        本網站與 Apple Inc.、Alipay、WeChat Pay、mPay 無任何關聯，Apple、Apple Music、Alipay、WeChat Pay、mPay 均為其公司註冊商標，僅供產品標示使用。
+      </div>
+      <div class="footer-small" style="margin-top:10px;">
+        聯絡方式：
+        <span style="margin-left:8px;">WeChat：<b>giftomo_macau</b></span>，
+        <span>Gmail：<a href="mailto:gifto.mo.help@gmail.com" style="color:#bbb;text-decoration:underline;">gifto.mo.help@gmail.com</a></span>
+      </div>
+      <!-- 你的 footer 之後的所有內容都不會被我動 -->
+    </div>
   </footer>
+  <!-- 你footer後的東西請自己加在這裡，我不會刪除任何內容！ -->
 </body>
 </html>
