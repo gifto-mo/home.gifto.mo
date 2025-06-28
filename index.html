@@ -18,34 +18,32 @@
       width: 100%;
       height: 74px;
       display: flex;
+      justify-content: center;   /* 中間對齊 */
       align-items: center;
-      justify-content: space-between;
-      background: #595d61; /* 跟你截圖一致的灰色 */
-      padding: 0 36px 26px;
+      background: #595d61;
       box-sizing: border-box;
-      z-index: 999;
       position: relative;
+      z-index: 999;
+    }
+    .header-center {
+      display: flex;
+      align-items: center;
+      gap: 36px;   /* 元素間距 */
+    }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
     }
     .logo-img {
       height: 52px;
       width: auto;
       display: block;
-      margin-top: 6px;
-      margin-bottom: 3px;
-      margin-left: 20px;    /* ← 這行加進去，數值可調 */
-      /* 無邊框，無背景，融入header灰色 */
       background: transparent;
       border: none;
       box-shadow: none;
     }
-    .nav-bar {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 22px;
-    }
     .nav-item {
-      position: relative;
       font-size: 1.19rem;
       font-weight: 600;
       color: #fff;
@@ -54,57 +52,28 @@
       border-radius: 9px;
       transition: background 0.13s;
       user-select: none;
+      position: relative;
     }
-    .nav-item:hover, .nav-item:focus {
+    .nav-item:hover,
+    .nav-item:focus {
       background: #484b4e;
     }
-    .nav-item .nav-arrow {
+    .nav-arrow {
       font-size: 0.86em;
       margin-left: 4px;
     }
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      background: #18181c;
-      border-radius: 11px;
-      min-width: 140px;
-      box-shadow: 0 4px 16px #0003;
-      z-index: 120;
-      margin-top: 5px;
-    }
-    .nav-item:hover .dropdown-menu,
-    .nav-item:focus-within .dropdown-menu {
-      display: block;
-    }
-    .dropdown-menu a {
-      display: block;
-      padding: 11px 18px 10px 18px;
-      color: #fff;
-      text-decoration: none;
-      font-size: 1.04rem;
-      border-radius: 8px;
-      transition: background 0.12s;
-    }
-    .dropdown-menu a:hover {
-      background: #f76876;
-      color: #fff;
-    }
+    /* 響應式縮小間距和字體 */
     @media (max-width: 820px) {
-      .header-bar { padding: 0 10px 0 8px; }
-      .logo-img { height: 38px; }
-      .nav-bar { gap: 8px; }
-      .nav-item { font-size: 1.01rem; padding: 7px 9px; }
-      .dropdown-menu { min-width: 110px; }
-      .dropdown-menu a { padding: 9px 12px 8px 12px; font-size: 0.99rem; }
+      .header-bar { height: 54px; }
+      .header-center { gap: 16px; }
+      .logo-img { height: 34px; }
+      .nav-item { font-size: 0.99rem; padding: 7px 7px; }
     }
-
-    /* --- 以下原本你的內容CSS直接複製，不做更動 --- */
+    /* ---- 以下是你的原本內容CSS ---- */
     .container {
       max-width: 720px;
       margin: 0 auto;
-      padding: 40px 10px 0 10px;
+      padding: 70px 10px 0 10px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -116,7 +85,7 @@
       font-size: 1.27rem;
       font-weight: 800;
       letter-spacing: 0.02em;
-      margin-top: 0px;
+      margin-top: 38px;
       margin-bottom: 18px;
       line-height: 1.18;
       text-shadow: none;
@@ -357,34 +326,14 @@
 </head>
 <body>
   <div class="header-bar">
-    <a href="https://gifto-mo.github.io/home.gitfmo.mo./" title="回首頁" style="text-decoration:none;">
-      <img class="logo-img" src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/logo.png" alt="Gifto.Mo Logo">
-    </a>
-    <nav class="nav-bar">
-      <div class="nav-item" tabindex="0">
-        價錢 <span class="nav-arrow">▼</span>
-        <div class="dropdown-menu">
-          <a href="#">中國區價錢</a>
-          <a href="#">港區價錢</a>
-          <a href="#">日區價錢</a>
-          <a href="#">美區價錢</a>
-        </div>
-      </div>
-      <div class="nav-item" tabindex="0">
-        購買 <span class="nav-arrow">▼</span>
-        <div class="dropdown-menu">
-          <a href="#">Apple Gift Card</a>
-          <a href="#">Apple Music</a>
-        </div>
-      </div>
-      <div class="nav-item" tabindex="0">
-        聯絡我們 <span class="nav-arrow">▼</span>
-        <div class="dropdown-menu">
-          <a href="#">WeChat: giftomo_macau</a>
-          <a href="mailto:gifto.mo.help@gmail.com">Email: gifto.mo.help@gmail.com</a>
-        </div>
-      </div>
-    </nav>
+    <div class="header-center">
+      <a href="https://gifto-mo.github.io/home.gitfmo.mo./" title="回首頁" class="logo-link">
+        <img class="logo-img" src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/logo.png" alt="Gifto.Mo Logo">
+      </a>
+      <div class="nav-item">價錢 <span class="nav-arrow">▼</span></div>
+      <div class="nav-item">購買 <span class="nav-arrow">▼</span></div>
+      <div class="nav-item">聯絡我們 <span class="nav-arrow">▼</span></div>
+    </div>
   </div>
   <div class="container">
     <div class="section-title">Apple Gift Card</div>
@@ -419,19 +368,19 @@
       </div>
     </div>
     <div class="contact-form-wrap">
-        <div class="contact-form-title">聯絡我們</div>
-        <form class="contact-form" action="https://formsubmit.co/gifto.mo.mail@gmail.com" method="POST">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://gifto-mo.github.io/home.gitfmo.mo./">
-          <label for="nickname">暱稱</label>
-          <input type="text" id="nickname" name="暱稱" required maxlength="32" placeholder="請輸入您的暱稱">
-          <label for="email">電郵</label>
-          <input type="email" id="email" name="電郵" required maxlength="64" placeholder="請輸入您的電郵">
-          <label for="message">查詢內容</label>
-          <textarea id="message" name="查詢內容" required maxlength="400" placeholder="請輸入您的問題或查詢"></textarea>
-          <button type="submit">送出查詢</button>
-        </form>
-      </div>
+      <div class="contact-form-title">聯絡我們</div>
+      <form class="contact-form" action="https://formsubmit.co/gifto.mo.mail@gmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://gifto-mo.github.io/home.gitfmo.mo./">
+        <label for="nickname">暱稱</label>
+        <input type="text" id="nickname" name="暱稱" required maxlength="32" placeholder="請輸入您的暱稱">
+        <label for="email">電郵</label>
+        <input type="email" id="email" name="電郵" required maxlength="64" placeholder="請輸入您的電郵">
+        <label for="message">查詢內容</label>
+        <textarea id="message" name="查詢內容" required maxlength="400" placeholder="請輸入您的問題或查詢"></textarea>
+        <button type="submit">送出查詢</button>
+      </form>
+    </div>
     <div class="payment-wrap">
       <div class="payment-title">支持的付款方式</div>
       <div class="payment-row">
@@ -447,11 +396,12 @@
       <div class="footer-small" style="margin-top:8px;">
         本網站與 Apple Inc.、Alipay、WeChat Pay、mPay 無任何關聯，Apple、Apple Music、Alipay、WeChat Pay、mPay 均為其公司註冊商標，僅供產品標示使用。
       </div>
-    <div class="footer-small" style="margin-top:10px;">
-      聯絡方式：
-      <span style="margin-left:8px;">WeChat：<b>giftomo_macau</b></span>，
-      <span>Gmail：<a href="mailto:gifto.mo.help@gmail.com" style="color:#bbb;text-decoration:underline;">gifto.mo.help@gmail.com</a></span>，
-      <span>Instagram：<a href="https://www.instagram.com/gifto.mo_macau/" target="_blank" style="color:#bbb;text-decoration:underline;">gifto.mo_macau</a></span>
+      <div class="footer-small" style="margin-top:10px;">
+        聯絡方式：
+        <span style="margin-left:8px;">WeChat：<b>giftomo_macau</b></span>，
+        <span>Gmail：<a href="mailto:gifto.mo.help@gmail.com" style="color:#bbb;text-decoration:underline;">gifto.mo.help@gmail.com</a></span>，
+        <span>Instagram：<a href="https://instagram.com/gifto.mo_macau" target="_blank" style="color:#bbb;text-decoration:underline;">gifto.mo_macau</a></span>
+      </div>
     </div>
   </footer>
 </body>
