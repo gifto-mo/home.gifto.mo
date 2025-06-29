@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Giftomo - 跨區 Apple 禮品卡與音樂服務</title>
   <style>
     :root {
@@ -54,7 +54,8 @@
       background: none;
       transition: background 0.13s;
     }
-    .nav-item:hover, .nav-item:focus-within {
+    .nav-item:hover,
+    .nav-item:focus-within {
       background: var(--hover-bg);
     }
     .nav-arrow {
@@ -89,7 +90,8 @@
     .dropdown-menu a:hover {
       background: var(--highlight-bg);
     }
-    .section-title, .subtitle {
+    .section-title,
+    .subtitle {
       text-align: center;
       font-size: 1.35rem;
       font-weight: 800;
@@ -111,7 +113,8 @@
       background: var(--highlight-bg);
       border-radius: 8px;
     }
-    .card, .music-card {
+    .card,
+    .music-card {
       flex: 0 0 144px;
       border-radius: 18px;
       background: var(--card-bg);
@@ -123,7 +126,8 @@
       background: var(--highlight-gradient);
       box-shadow: 0 6px 24px #d24a6a44, 0 2px 10px #0001;
     }
-    .card img, .music-card img {
+    .card img,
+    .music-card img {
       width: 140px;
       height: 140px;
       border-radius: 13px;
@@ -131,16 +135,19 @@
       background: #fff;
       box-shadow: 0 2px 12px #0001;
       margin-bottom: 16px;
-      transition: transform 0.18s cubic-bezier(.48,1.38,.49,.99);
+      transition: transform 0.18s cubic-bezier(.48, 1.38, .49, .99);
     }
-    .card:hover, .music-card:hover {
+    .card:hover,
+    .music-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 12px 34px #0003;
     }
-    .card:hover img, .music-card:hover img {
+    .card:hover img,
+    .music-card:hover img {
       transform: scale(1.06);
     }
-    .card-ch, .music-ch {
+    .card-ch,
+    .music-ch {
       font-size: 1.10rem;
       font-weight: 600;
       white-space: pre-line;
@@ -153,27 +160,35 @@
       border-top: 1px dashed #555;
       padding-top: 30px;
     }
+    .contact-form-wrapper {
+      background: #1e1e1e;
+      border: 1px solid #444;
+      border-radius: 14px;
+      padding: 24px 20px;
+      margin: 36px auto 40px auto;
+      max-width: 400px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    }
     .contact-form {
       display: flex;
       flex-direction: column;
-      max-width: 500px;
-      margin: 0 auto 40px auto;
-      gap: 12px;
+      width: 100%;
+      gap: 10px;
     }
     .contact-form input,
     .contact-form textarea,
     .contact-form button {
-      padding: 12px;
-      font-size: 1rem;
+      padding: 10px 12px;
+      font-size: 0.95rem;
       border-radius: 8px;
       border: none;
     }
     .contact-form textarea {
       resize: vertical;
-      height: 120px;
+      height: 100px;
     }
     .contact-form button {
-      background: var(--highlight-bg);
+      background: #f76876;
       color: white;
       font-weight: bold;
       cursor: pointer;
@@ -200,7 +215,7 @@
       object-fit: cover;
       background: white;
       padding: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     }
     .footer {
       background: #181818;
@@ -208,6 +223,34 @@
       font-size: 0.9rem;
       text-align: center;
       color: #aaa;
+    }
+
+    /* 👉 手機導覽列自適應 */
+    @media (max-width: 768px) {
+      .header-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        padding: 12px 16px;
+        height: auto;
+      }
+      .logo-img {
+        height: 42px;
+        align-self: center;
+      }
+      .nav-bar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+      }
+      .nav-item {
+        font-size: 0.95rem;
+        padding: 6px 10px;
+        background: #484b4e;
+        border-radius: 8px;
+      }
     }
   </style>
 </head>
@@ -248,19 +291,19 @@
     <div class="product-grid">
       <div class="card">
         <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/china.png" alt="中國區 Apple 禮品卡">
-        <div class="card-ch">中國區 Apple 禮品卡</div>
+        <div class="card-ch">中國區<br>Apple 禮品卡</div>
       </div>
       <div class="card">
         <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/hk.png" alt="香港區 Apple 禮品卡">
-        <div class="card-ch">香港區 Apple 禮品卡</div>
+        <div class="card-ch">香港區<br>Apple 禮品卡</div>
       </div>
       <div class="card">
         <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/japan.png" alt="日本區 Apple 禮品卡">
-        <div class="card-ch">日本區 Apple 禮品卡</div>
+        <div class="card-ch">日本區<br>Apple 禮品卡</div>
       </div>
       <div class="card">
         <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us.png" alt="美國區 Apple 禮品卡">
-        <div class="card-ch">美國區 Apple 禮品卡</div>
+        <div class="card-ch">美國區<br>Apple 禮品卡</div>
       </div>
     </div>
     <div class="subtitle">Other Product</div>
@@ -270,18 +313,69 @@
         <div class="music-ch">Apple Music<br>會員</div>
       </div>
     </div>
+    <style>
+      .contact-form-wrapper {
+        background: #1e1e1e;
+        border: 1px solid #444;
+        border-radius: 14px;
+        padding: 24px 20px;
+        margin: 36px auto 40px auto;
+        max-width: 400px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      }
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+      }
+      .contact-form input,
+      .contact-form textarea,
+      .contact-form button {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        border: none;
+      }
+      .contact-form textarea {
+        resize: vertical;
+        height: 100px;
+      }
+      .contact-form button {
+        background: #f76876;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      @media (max-width: 480px) {
+        .contact-form-wrapper {
+          padding: 18px 14px;
+          margin: 28px 16px;
+          width: calc(100% - 32px);
+          box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+        }
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form button {
+          font-size: 1rem;
+        }
+      }
+    </style>
+    
     <div class="contact-form-title">聯絡我們</div>
-    <form class="contact-form" action="https://formsubmit.co/gifto.mo.mail@gmail.com" method="POST">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://gifto-mo.github.io/home.gitfmo.mo./">
-      <label for="nickname">暱稱</label>
-      <input type="text" id="nickname" name="暱稱" required maxlength="32" placeholder="請輸入您的暱稱">
-      <label for="email">電郵</label>
-      <input type="email" id="email" name="電郵" required maxlength="64" placeholder="請輸入您的電郵">
-      <label for="message">查詢內容</label>
-      <textarea id="message" name="查詢內容" required maxlength="400" placeholder="請輸入您的問題或查詢"></textarea>
-      <button type="submit">送出查詢</button>
-    </form>
+    <div class="contact-form-wrapper">
+      <form class="contact-form" action="https://formsubmit.co/gifto.mo.mail@gmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://gifto-mo.github.io/home.gitfmo.mo./">
+        <label for="nickname">匿名</label>
+        <input type="text" id="nickname" name="暱稱" required maxlength="32" placeholder="輸入匿名">
+        <label for="email">電子郵件</label>
+        <input type="email" id="email" name="電郵" required maxlength="64" placeholder="輸入電子郵件">
+        <label for="message">查詢內容</label>
+        <textarea id="message" name="查詢內容" required maxlength="400" placeholder="輸入查詢內容"></textarea>
+        <button type="submit">送出查詢</button>
+      </form>
+    </div>
     <div class="payment-wrap">
       <div class="payment-title">支持的付款方式</div>
       <div class="payment-row">
