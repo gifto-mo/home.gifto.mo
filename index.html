@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Giftomo - 跨區 Apple 禮品卡與音樂服務</title>
   <style>
+    /* ========== 基礎樣式 ========== */
     :root {
+      /* 顏色變量定義 */
       --primary-bg: #232323;
       --header-bg: rgba(32,40,64, 0.89);
       --hover-bg: #2b3555;
       --card-bg: #1b2338;
       --highlight-bg: #2542a6;
-      --highlight-gradient: linear-gradient(135deg, #3551a8 30%, #192444 100%);
       --text-light: #fff;
+      --border-radius: 18px;
+      --transition-time: 0.3s;
     }
-    * { box-sizing: border-box; }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
     body {
       margin: 0;
       background: linear-gradient(120deg, #232323 58%, #253055 100%);
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'PingFang TC', 'Microsoft JhengHei', Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 
+                   'PingFang TC', 'Microsoft JhengHei', Arial, sans-serif;
       color: var(--text-light);
+      line-height: 1.5;
     }
+
+    /* ========== 頁首區域 ========== */
     .header-bar {
       display: flex;
       justify-content: space-between;
@@ -35,265 +48,349 @@
       top: 0;
       z-index: 999;
     }
+
+    /* Logo 樣式 */
     .logo-img-wrapper {
+      height: 98px;
       display: flex;
-      justify-content: center;
       align-items: center;
-      height: 98px;   /* logo外框高度同步header */
     }
+    
     .logo-img {
       background: linear-gradient(135deg, #284082 70%, #172040 100%);
-      border-radius: 22px;
+      border-radius: var(--border-radius);
       padding: 18px 38px;
-      filter: drop-shadow(0 5px 16px #193268aa) drop-shadow(0 1px 3px #11204f44);
-      max-width: 210px;   /* LOGO放大 */
+      filter: drop-shadow(0 5px 16px #193268aa) 
+              drop-shadow(0 1px 3px #11204f44);
+      max-width: 210px;
       width: 100%;
       height: auto;
-      display: block;
     }
+
+    /* ========== 導航菜單 ========== */
     .nav-bar {
       display: flex;
-      align-items: center;
       gap: 13px;
     }
+    
     .nav-item {
       position: relative;
       font-size: 1.02rem;
       font-weight: 600;
-      color: var(--text-light);
       padding: 5px 10px;
       border-radius: 8px;
       cursor: pointer;
-      background: none;
-      transition: background 0.13s, color 0.13s;
-      letter-spacing: 0.01em;
+      transition: all var(--transition-time) ease;
     }
-    .nav-item:hover,
-    .nav-item:focus-within {
+    
+    .nav-item:hover {
       background: var(--hover-bg);
       color: #4ea6fa;
     }
-    .nav-arrow {
-      font-size: 0.86em;
-      margin-left: 2px;
-    }
+    
+    /* 下拉菜單樣式 */
     .dropdown-menu {
-      display: none;
       position: absolute;
       top: 100%;
       right: 0;
       background: #19223b;
       border-radius: 10px;
       min-width: 110px;
-      margin-top: 4px;
-      box-shadow: 0 3px 10px #1a223344, 0 1px 6px #3551a812;
-      z-index: 120;
+      box-shadow: 0 3px 10px #1a223344, 
+                  0 1px 6px #3551a812;
       border: 1px solid #2542a644;
-      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all var(--transition-time) ease;
+      z-index: 120;
     }
-    .nav-item:hover .dropdown-menu,
-    .nav-item:focus-within .dropdown-menu {
-      display: block;
+    
+    .nav-item:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
+    
     .dropdown-menu a {
       display: block;
       padding: 7px 13px;
       color: var(--text-light);
       text-decoration: none;
-      font-size: 0.95rem;
-      border-radius: 7px;
-      transition: background 0.12s, color 0.12s;
+      transition: all var(--transition-time) ease;
     }
+    
     .dropdown-menu a:hover {
       background: var(--highlight-bg);
-      color: #fff;
     }
+
+    /* ========== 主要內容區 ========== */
+    main {
+      padding: 20px 0;
+    }
+    
     .section-title, .subtitle {
       text-align: center;
-      font-size: 1.16rem;
+      font-size: 1.3rem;
       font-weight: 900;
-      letter-spacing: 0.04em;
-      margin: 28px auto 14px auto;
-      text-shadow: 0 1.5px 8px #19326844, 0 1px 2px #2228;
-      color: #fff;
+      margin: 28px auto 14px;
+      text-shadow: 0 1.5px 8px #19326844, 
+                   0 1px 2px #2228;
     }
+
+    /* ========== 產品卡片區 ========== */
     .product-grid {
       display: flex;
-      flex-wrap: nowrap;
-      gap: 13px;
-      margin: 0 12px 22px 12px;
+      gap: 15px;
+      padding: 0 15px;
+      margin-bottom: 30px;
       overflow-x: auto;
-      overflow-y: visible;
-      min-width: 0;
-      width: 100%;
-      align-items: stretch;
+      scrollbar-width: thin;
+      scrollbar-color: #2542a6bb transparent;
     }
-    .product-grid::-webkit-scrollbar { height: 7px; }
+    
+    .product-grid::-webkit-scrollbar {
+      height: 7px;
+    }
+    
     .product-grid::-webkit-scrollbar-thumb {
       background: #2542a6bb;
       border-radius: 10px;
     }
-    .card, .music-card {
-      flex: 0 0 132px;
-      min-width: 112px;
-      max-width: 150px;
-      height: 190px;
+
+    /* 卡片基礎樣式 */
+    .card {
+      flex: 0 0 160px;
+      height: 220px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       background: linear-gradient(120deg, #263968 68%, #1a233c 100%);
       border: 1.5px solid #33487755;
-      box-shadow: 0 5px 16px #25346473, 0 2px 7px #14204133;
-      border-radius: 18px;
-      padding: 13px 5px 8px 5px;
+      border-radius: var(--border-radius);
+      padding: 15px;
+      transition: all var(--transition-time) ease;
       position: relative;
-      transition: transform 0.13s cubic-bezier(.37,1.56,.46,.99), box-shadow 0.13s;
-      overflow: visible;
     }
+    
+    /* 音樂卡片特殊樣式 */
     .music-card {
       background: linear-gradient(135deg, #284082 70%, #162037 100%);
       border: 1.5px solid #3551a866;
-      box-shadow: 0 10px 24px #19326880, 0 3px 11px #17244466;
     }
-    .card:hover, .music-card:hover {
-      transform: translateY(-7px) scale(1.03) rotateZ(-1deg);
-      box-shadow: 0 14px 30px #253464be, 0 6px 22px #0008;
-      z-index: 2;
-    }
-    .card img, .music-card img {
-      margin: 0 auto 8px auto;
-      display: block;
-      box-shadow: 0 2px 8px #19326870, 0 1px 3px #18213b44;
-      width: 68px;
-      height: 68px;
-      border-radius: 8px;
+    
+    /* 產品圖片樣式 */
+    .card img {
+      width: 90px;
+      height: 90px;
       object-fit: contain;
       background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px #19326870, 
+                  0 1px 3px #18213b44;
+      margin-bottom: 12px;
+      transition: transform var(--transition-time) ease;
     }
-    .card-ch, .music-ch {
-      text-align: center;
-      font-size: 0.99rem;
+    
+    /* 產品標題 */
+    .card-ch {
+      font-size: 1.05rem;
       font-weight: 700;
-      color: #fff;
-      letter-spacing: 0.01em;
-      text-shadow: 0 2px 8px #23356955, 0 1px 2px #17244440;
-      margin-top: 2px;
-      word-break: break-all;
-      line-height: 1.18;
+      text-align: center;
+      text-shadow: 0 2px 8px #23356955;
     }
+    
+    /* 懸停效果 */
+    .card:hover {
+      transform: translateY(-5px);
+      border: 3px solid white;
+      box-shadow: 0 10px 25px rgba(37, 52, 100, 0.5);
+    }
+    
+    .card:hover img {
+      transform: scale(1.2);
+    }
+
+    /* ========== 聯絡表單 ========== */
     .contact-form-title {
       text-align: center;
-      font-size: 1.03rem;
+      font-size: 1.1rem;
       font-weight: bold;
-      margin-top: 22px;
+      margin: 30px 0 15px;
+      padding-top: 20px;
       border-top: 1px dashed #31406d;
-      padding-top: 18px;
     }
+    
     .contact-form-wrapper {
-      background: #1e253bfa;
-      border: 1px solid #33487755;
-      border-radius: 10px;
-      padding: 12px 10px;
-      margin: 22px auto 26px auto;
       max-width: 320px;
+      margin: 0 auto 30px;
+      padding: 15px;
+      background: #1e253bfa;
+      border-radius: var(--border-radius);
       box-shadow: 0 3px 8px #19326828;
-      backdrop-filter: blur(1.5px);
     }
+    
     .contact-form {
       display: flex;
       flex-direction: column;
-      width: 100%;
-      gap: 7px;
+      gap: 10px;
     }
+    
     .contact-form input,
     .contact-form textarea,
     .contact-form button {
-      padding: 7px 9px;
-      font-size: 0.97rem;
+      padding: 8px 12px;
       border-radius: 6px;
       border: none;
+      font-size: 0.97rem;
     }
+    
     .contact-form textarea {
       resize: vertical;
-      height: 56px;
+      min-height: 80px;
     }
+    
     .contact-form button {
-      background: #2542a6;
+      background: var(--highlight-bg);
       color: white;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 1px 6px #19326844;
-      font-size: 1rem;
-      transition: background 0.14s;
+      transition: background var(--transition-time) ease;
     }
+    
     .contact-form button:hover {
       background: #3a6fe2;
     }
+
+    /* ========== 付款方式 ========== */
     .payment-wrap {
       text-align: center;
-      margin-bottom: 26px;
+      margin-bottom: 30px;
     }
+    
     .payment-title {
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: bold;
-      margin: 18px 0 8px;
+      margin: 20px 0 15px;
     }
+    
     .payment-row {
       display: flex;
       justify-content: center;
-      gap: 16px;
+      gap: 20px;
       flex-wrap: wrap;
     }
+    
     .payment-icon {
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      object-fit: cover;
+      object-fit: contain;
       background: white;
-      padding: 4px;
-      box-shadow: 0 1px 4px #25346440;
-      transition: transform 0.13s;
+      padding: 5px;
+      box-shadow: 0 2px 5px rgba(37, 52, 100, 0.3);
+      transition: transform var(--transition-time) ease;
     }
+    
     .payment-icon:hover {
-      transform: scale(1.08) rotateZ(-3deg);
+      transform: scale(1.1);
     }
+
+    /* ========== 頁腳 ========== */
     .footer {
       background: #181a20fa;
-      padding: 15px;
-      font-size: 0.95rem;
+      padding: 25px 15px;
       text-align: center;
-      color: #aaa;
       border-top: 1px solid #2542a611;
-      box-shadow: 0 -2px 8px #25305524;
-      margin-top: 15px;
     }
+    
     .footer-inner {
       max-width: 600px;
       margin: 0 auto;
     }
+    
     .footer-small {
       font-size: 0.82rem;
       color: #bbbbbb;
+      margin-top: 10px;
+      line-height: 1.5;
     }
-    @media (max-width: 600px) {
-      .header-bar { padding: 0 2px; height: 64px;}
-      .logo-img-wrapper { height: 64px; }
-      .logo-img { max-width: 48vw; padding: 7px 10px;}
-      .product-grid { gap: 7px; }
-      .card, .music-card { min-width: 90px; max-width: 106px; height: 108px; }
-      .card img, .music-card img { width: 34px; height: 34px;}
-      .section-title, .subtitle { font-size: 0.97rem;}
+    
+    .footer a {
+      color: #bbbbbb;
+      text-decoration: underline;
+    }
+
+    /* ========== 響應式設計 ========== */
+    @media (max-width: 768px) {
+      .header-bar {
+        height: 70px;
+        padding: 0 10px;
+      }
+      
+      .logo-img-wrapper {
+        height: 70px;
+      }
+      
+      .logo-img {
+        padding: 10px 20px;
+      }
+      
+      .nav-item {
+        font-size: 0.95rem;
+        padding: 5px 8px;
+      }
+      
+      .card {
+        flex: 0 0 140px;
+        height: 190px;
+      }
+      
+      .card img {
+        width: 70px;
+        height: 70px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .header-bar {
+        height: 60px;
+      }
+      
+      .logo-img-wrapper {
+        height: 60px;
+      }
+      
+      .nav-bar {
+        gap: 8px;
+      }
+      
+      .card {
+        flex: 0 0 120px;
+        height: 160px;
+        padding: 10px;
+      }
+      
+      .card img {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .card-ch {
+        font-size: 0.95rem;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- 頁首導航 -->
   <header class="header-bar">
     <div class="logo-img-wrapper">
       <img class="logo-img" src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/logo.png" alt="Gifto.Mo Logo">
     </div>
     <nav class="nav-bar">
-      <div class="nav-item" tabindex="0">
+      <div class="nav-item">
         價錢 <span class="nav-arrow">▼</span>
         <div class="dropdown-menu">
           <a href="#">中國區價錢</a>
@@ -302,85 +399,98 @@
           <a href="#">美區價錢</a>
         </div>
       </div>
-      <div class="nav-item" tabindex="0">
+      <div class="nav-item">
         購買 <span class="nav-arrow">▼</span>
         <div class="dropdown-menu">
           <a href="#">Apple Gift Card</a>
           <a href="#">Apple Music</a>
         </div>
       </div>
-      <div class="nav-item" tabindex="0">
+      <div class="nav-item">
         聯絡我們 <span class="nav-arrow">▼</span>
         <div class="dropdown-menu">
           <a href="#">WeChat: giftomo_macau</a>
-          <a href="mailto:gifto.mo.help@gmail.com">Email: gifto.mo.help@gmail.com</a>
-          <a href="https://instagram.com/gifto.mo_macau" target="_blank">Instagram: gifto.mo_macau</a>
+          <a href="mailto:gifto.mo.help@gmail.com">Email</a>
+          <a href="https://instagram.com/gifto.mo_macau" target="_blank">Instagram</a>
         </div>
       </div>
     </nav>
   </header>
+
+  <!-- 主要內容 -->
   <main>
-    <div class="section-title">Apple Gift Card</div>
-    <div class="product-grid">
-      <div class="card">
-        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/china.png" alt="中國區 Apple 禮品卡">
-        <div class="card-ch">中國區<br>Apple 禮品卡</div>
+    <section>
+      <h2 class="section-title">Apple Gift Card</h2>
+      <div class="product-grid">
+        <div class="card">
+          <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/china.png" alt="中國區 Apple 禮品卡">
+          <div class="card-ch">中國區<br>Apple 禮品卡</div>
+        </div>
+        <div class="card">
+          <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/hk.png" alt="香港區 Apple 禮品卡">
+          <div class="card-ch">香港區<br>Apple 禮品卡</div>
+        </div>
+        <div class="card">
+          <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/japan.png" alt="日本區 Apple 禮品卡">
+          <div class="card-ch">日本區<br>Apple 禮品卡</div>
+        </div>
+        <div class="card">
+          <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us.png" alt="美國區 Apple 禮品卡">
+          <div class="card-ch">美國區<br>Apple 禮品卡</div>
+        </div>
       </div>
-      <div class="card">
-        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/hk.png" alt="香港區 Apple 禮品卡">
-        <div class="card-ch">香港區<br>Apple 禮品卡</div>
+    </section>
+
+    <section>
+      <h3 class="subtitle">Other Product</h3>
+      <div class="product-grid">
+        <div class="music-card card">
+          <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us_applemusic.png" alt="Apple Music 會員">
+          <div class="card-ch">Apple Music<br>會員</div>
+        </div>
       </div>
-      <div class="card">
-        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/japan.png" alt="日本區 Apple 禮品卡">
-        <div class="card-ch">日本區<br>Apple 禮品卡</div>
+    </section>
+
+    <section>
+      <h3 class="contact-form-title">聯絡我們</h3>
+      <div class="contact-form-wrapper">
+        <form class="contact-form" action="https://formsubmit.co/gifto.mo.mail@gmail.com" method="POST">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://gifto-mo.github.io/home.gitfmo.mo./">
+          <label for="nickname">匿名</label>
+          <input type="text" id="nickname" name="暱稱" required maxlength="32" placeholder="輸入匿名">
+          <label for="email">電子郵件</label>
+          <input type="email" id="email" name="電郵" required maxlength="64" placeholder="輸入電子郵件">
+          <label for="message">查詢內容</label>
+          <textarea id="message" name="查詢內容" required maxlength="400" placeholder="輸入查詢內容"></textarea>
+          <button type="submit">送出查詢</button>
+        </form>
       </div>
-      <div class="card">
-        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us.png" alt="美國區 Apple 禮品卡">
-        <div class="card-ch">美國區<br>Apple 禮品卡</div>
-      </div>
-    </div>
-    <div class="subtitle">Other Product</div>
-    <div class="product-grid">
-      <div class="music-card">
-        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us_applemusic.png" alt="Apple Music 會員">
-        <div class="music-ch">Apple Music<br>會員</div>
-      </div>
-    </div>
-    <div class="contact-form-title">聯絡我們</div>
-    <div class="contact-form-wrapper">
-      <form class="contact-form" action="https://formsubmit.co/gifto.mo.mail@gmail.com" method="POST">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://gifto-mo.github.io/home.gitfmo.mo./">
-        <label for="nickname">匿名</label>
-        <input type="text" id="nickname" name="暱稱" required maxlength="32" placeholder="輸入匿名">
-        <label for="email">電子郵件</label>
-        <input type="email" id="email" name="電郵" required maxlength="64" placeholder="輸入電子郵件">
-        <label for="message">查詢內容</label>
-        <textarea id="message" name="查詢內容" required maxlength="400" placeholder="輸入查詢內容"></textarea>
-        <button type="submit">送出查詢</button>
-      </form>
-    </div>
-    <div class="payment-wrap">
-      <div class="payment-title">支持的付款方式</div>
+    </section>
+
+    <section class="payment-wrap">
+      <h3 class="payment-title">支持的付款方式</h3>
       <div class="payment-row">
-        <img class="payment-icon" src="https://github.com/gifto-mo/home.gitfmo.mo./raw/main/alipay.png" alt="Alipay">
-        <img class="payment-icon" src="https://github.com/gifto-mo/home.gitfmo.mo./raw/main/wechatpay.png" alt="Wechat Pay">
-        <img class="payment-icon" src="https://github.com/gifto-mo/home.gitfmo.mo./raw/main/mpay.png" alt="mPay">
+        <img class="payment-icon" src="https://github.com/gifto-mo/home.gifto.mo./raw/main/payment_alipay.png" alt="Alipay">
+        <img class="payment-icon" src="https://github.com/gifto-mo/home.gifto.mo./raw/main/payment_%20wechatpay.png" alt="Wechat Pay">
+        <img class="payment-icon" src="https://github.com/gifto-mo/home.gifto.mo./raw/main/payment_%20mpay.png" alt="mPay">
       </div>
-    </div>
+    </section>
   </main>
+
+  <!-- 頁腳 -->
   <footer class="footer">
     <div class="footer-inner">
-      © 2025 Gifto.Mo. All rights reserved.
-      <div class="footer-small" style="margin-top:8px;">
+      <p>© 2025 Gifto.Mo. All rights reserved.</p>
+      <p class="footer-small">
         本網站與 Apple Inc.、Alipay、WeChat Pay、mPay 無任何關聯，Apple、Apple Music、Alipay、WeChat Pay、mPay 均為其公司註冊商標，僅供產品標示使用。
-      </div>
-      <div class="footer-small" style="margin-top:10px;">
+      </p>
+      <p class="footer-small">
         聯絡方式：
-        <span style="margin-left:8px;">WeChat：<b>giftomo_macau</b></span>，
-        <span>Gmail：<a href="mailto:gifto.mo.help@gmail.com" style="color:#bbb;text-decoration:underline;">gifto.mo.help@gmail.com</a></span>，
-        <span>Instagram：<a href="https://instagram.com/gifto.mo_macau" target="_blank" style="color:#bbb;text-decoration:underline;">gifto.mo_macau</a></span>
-      </div>
+        <span>WeChat：<b>giftomo_macau</b></span>，
+        <span>Gmail：<a href="mailto:gifto.mo.help@gmail.com">gifto.mo.help@gmail.com</a></span>，
+        <span>Instagram：<a href="https://instagram.com/gifto.mo_macau" target="_blank">gifto.mo_macau</a></span>
+      </p>
     </div>
   </footer>
 </body>
