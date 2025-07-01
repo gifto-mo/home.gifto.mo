@@ -135,17 +135,24 @@
     }
 
     /* ========== 產品卡片 ========== */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 20px;
+    .product-container {
+      width: 100%;
+      overflow-x: auto;
+      padding-bottom: 20px;
       margin-bottom: 40px;
+    }
+    
+    .product-grid {
+      display: flex;
+      gap: 20px;
+      width: max-content; /* 確保內容不換行 */
+      padding: 10px 5px;
     }
     
     .card {
       background: linear-gradient(120deg, #263968 68%, #1a233c 100%);
       border-radius: var(--border-radius);
-      padding: 20px 15px;
+      padding: 25px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -153,7 +160,9 @@
       border: 1.5px solid rgba(51,72,119,0.33);
       box-shadow: 0 5px 16px rgba(37,52,100,0.45);
       transition: all var(--transition-time) ease;
-      height: 220px;
+      width: 180px; /* 固定卡片寬度 */
+      height: 240px; /* 增大卡片高度 */
+      flex-shrink: 0; /* 防止卡片縮小 */
     }
     
     .music-card {
@@ -168,8 +177,8 @@
     }
     
     .card img {
-      width: 100px; /* 增大產品圖片尺寸 */
-      height: 100px; /* 增大產品圖片尺寸 */
+      width: 100px; /* 桌面版圖片大小 */
+      height: 100px; /* 桌面版圖片大小 */
       object-fit: contain;
       background: white;
       border-radius: 8px;
@@ -187,6 +196,20 @@
       font-weight: 700;
       text-align: center;
       line-height: 1.3;
+    }
+
+    /* ========== 其他產品 ========== */
+    .other-product-container {
+      width: 100%;
+      overflow-x: auto;
+      padding-bottom: 20px;
+    }
+    
+    .other-product-grid {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      padding: 10px 5px;
     }
 
     /* ========== 聯絡表單 ========== */
@@ -289,12 +312,10 @@
         padding: 6px 10px;
       }
       
-      .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      }
-      
       .card {
-        height: 200px;
+        width: 160px;
+        height: 220px;
+        padding: 20px 15px;
       }
       
       .card img {
@@ -327,13 +348,9 @@
         min-width: 120px;
       }
       
-      .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 15px;
-      }
-      
       .card {
-        height: 180px;
+        width: 140px;
+        height: 200px;
         padding: 15px 10px;
       }
       
@@ -361,8 +378,8 @@
         font-size: 0.85rem;
       }
       
-      .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      .card {
+        width: 130px;
       }
     }
   </style>
@@ -407,32 +424,36 @@
   <main>
     <section>
       <h1 class="section-title">Apple Gift Card</h1>
-      <div class="product-grid">
-        <div class="card">
-          <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/china.png" alt="中國區 Apple 禮品卡">
-          <div class="card-title">中國區<br>Apple 禮品卡</div>
-        </div>
-        <div class="card">
-          <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/hk.png" alt="香港區 Apple 禮品卡">
-          <div class="card-title">香港區<br>Apple 禮品卡</div>
-        </div>
-        <div class="card">
-          <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/japan.png" alt="日本區 Apple 禮品卡">
-          <div class="card-title">日本區<br>Apple 禮品卡</div>
-        </div>
-        <div class="card">
-          <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us.png" alt="美國區 Apple 禮品卡">
-          <div class="card-title">美國區<br>Apple 禮品卡</div>
+      <div class="product-container">
+        <div class="product-grid">
+          <div class="card">
+            <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/china.png" alt="中國區 Apple 禮品卡">
+            <div class="card-title">中國區<br>Apple 禮品卡</div>
+          </div>
+          <div class="card">
+            <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/hk.png" alt="香港區 Apple 禮品卡">
+            <div class="card-title">香港區<br>Apple 禮品卡</div>
+          </div>
+          <div class="card">
+            <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/japan.png" alt="日本區 Apple 禮品卡">
+            <div class="card-title">日本區<br>Apple 禮品卡</div>
+          </div>
+          <div class="card">
+            <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us.png" alt="美國區 Apple 禮品卡">
+            <div class="card-title">美國區<br>Apple 禮品卡</div>
+          </div>
         </div>
       </div>
     </section>
 
     <section>
       <h2 class="subtitle">Other Product</h2>
-      <div class="product-grid">
-        <div class="card music-card">
-          <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us_applemusic.png" alt="Apple Music 會員">
-          <div class="card-title">Apple Music<br>會員</div>
+      <div class="other-product-container">
+        <div class="other-product-grid">
+          <div class="card music-card">
+            <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us_applemusic.png" alt="Apple Music 會員">
+            <div class="card-title">Apple Music<br>會員</div>
+          </div>
         </div>
       </div>
     </section>
