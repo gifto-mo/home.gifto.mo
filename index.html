@@ -697,7 +697,7 @@
       </form>
     </section>
 
-    <!-- 付款方式區塊 -->
+    <!-- 付款方式區塊 - 已添加mPay支付方式 -->
     <section class="payment-section">
       <h2 class="payment-title">支持的付款方式</h2>
       <div class="payment-methods">
@@ -707,16 +707,19 @@
         </div>
         <div class="payment-method">
           <img class="payment-icon" src="https://github.com/gifto-mo/home.gitfmo.mo./raw/main/payment_%20wechatpay.png" alt="WeChat Pay">
-          <span class="password-error"></span>
+          <span class="payment-name">WeChat Pay</span>
+        </div>
+        <div class="payment-method">
+          <img class="payment-icon" src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/payment_%20mpay.png" alt="mPay">
+          <span class="payment-name">mPay</span>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- 頁腳 -->
+  <!-- 頁腳 - 已刪除特定版權文字 -->
   <footer>
     <div class="footer-content">
-      <p>© 2025 Gifto.Mo. All rights reserved.</p>
       <p class="footer-small">
         本網站與 Apple Inc.、Alipay、WeChat Pay、mPay 無任何關聯，相關商標均屬各自所有者。
       </p>
@@ -729,9 +732,9 @@
   </footer>
 
   <script>
-    // 密碼保護功能
+    // 密碼保護功能 - 每次訪問都需要輸入密碼
     document.addEventListener('DOMContentLoaded', function() {
-      const password = "idontknow";
+      const password = "idontknow"; // 設置您的密碼
       let attempts = 0;
       const maxAttempts = 3;
       const body = document.body;
@@ -740,12 +743,9 @@
       const submitBtn = document.querySelector('.password-submit');
       const errorMsg = document.querySelector('.password-error');
       
-      // 檢查本地存儲是否有已驗證的標記
-      if(localStorage.getItem('passwordVerified') === 'true') {
-        body.classList.remove('password-protected');
-        overlay.style.display = 'none';
-        return;
-      }
+      // 每次頁面加載都顯示密碼輸入框
+      body.classList.add('password-protected');
+      overlay.style.display = 'flex';
       
       submitBtn.addEventListener('click', checkPassword);
       passwordInput.addEventListener('keypress', function(e) {
@@ -758,10 +758,9 @@
         const inputPassword = passwordInput.value.trim();
         
         if(inputPassword === password) {
-          // 密碼正確
+          // 密碼正確 - 不存儲任何狀態
           body.classList.remove('password-protected');
           overlay.style.display = 'none';
-          localStorage.setItem('passwordVerified', 'true');
         } else {
           // 密碼錯誤
           attempts++;
