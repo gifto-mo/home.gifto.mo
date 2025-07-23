@@ -1,782 +1,881 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Giftomo - 跨區 Apple 禮品卡與音樂服務</title>
-  <style>
-    /* ========== 基礎樣式 ========== */
-    :root {
-      /* 顏色變量 */
-      --primary-bg: #232323;
-      --header-bg: rgba(32,40,64,0.89);
-      --hover-bg: #2b3555;
-      --card-bg: #1b2338;
-      --highlight-bg: #2542a6;
-      --text-light: #fff;
-      --border-radius: 18px;
-      --transition-time: 0.3s;
-      --apple-music-color: #f8b8bb; /* 改為淺紅色 */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gifto.Mo - 可靠的禮品卡及課金服務</title>
     
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <!-- 字體和圖標 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    body {
-      background: linear-gradient(120deg, #232323 58%, #253055 100%);
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 
-                   'PingFang TC', 'Microsoft JhengHei', sans-serif;
-      color: var(--text-light);
-      min-height: 100vh;
-    }
-
-    /* 密碼保護樣式 */
-    .password-protected {
-      position: relative;
-    }
-    
-    .password-protected::after {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      backdrop-filter: blur(10px);
-      z-index: 999;
-    }
-    
-    .password-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    
-    .password-modal {
-      background: #1b2338;
-      padding: 30px;
-      border-radius: var(--border-radius);
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(37,66,166,0.27);
-    }
-    
-    .password-modal h2 {
-      margin-bottom: 20px;
-      color: white;
-    }
-    
-    .password-input {
-      width: 100%;
-      padding: 12px 15px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: none;
-      background: rgba(255,255,255,0.1);
-      color: white;
-      font-size: 1rem;
-    }
-    
-    .password-submit {
-      background: var(--highlight-bg);
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-    }
-    
-    .password-submit:hover {
-      background: #3a6fe2;
-    }
-    
-    .password-error {
-      color: #ff6b6b;
-      margin-top: 10px;
-      min-height: 20px;
-    }
-
-    /* ========== 頁首區域 ========== */
-    .header-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 98px;
-      padding: 0 20px;
-      background: var(--header-bg);
-      backdrop-filter: blur(9px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid #2542a622;
-      box-shadow: 0 4px 20px rgba(26,28,32,0.36);
-    }
-
-    /* Logo 響應式設計 */
-    .logo-img-wrapper {
-      height: 100%;
-      display: flex;
-      align-items: center;
-    }
-    
-    .logo-img {
-      background: linear-gradient(135deg, #284082 70%, #172040 100%);
-      border-radius: var(--border-radius);
-      padding: 15px 30px;
-      filter: drop-shadow(0 5px 16px rgba(25,50,104,0.67));
-      width: auto;
-      height: 60px;
-      object-fit: contain;
-      transition: all 0.3s ease;
-    }
-
-    /* ========== 導航菜單 ========== */
-    .nav-bar {
-      display: flex;
-      gap: 15px;
-    }
-    
-    .nav-item {
-      position: relative;
-      font-size: 1.05rem;
-      font-weight: 600;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all var(--transition-time) ease;
-    }
-    
-    .nav-item:hover {
-      background: var(--hover-bg);
-    }
-    
-    .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      background: #19223b;
-      border-radius: 10px;
-      min-width: 140px;
-      box-shadow: 0 3px 10px rgba(26,34,51,0.27);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(10px);
-      transition: all var(--transition-time) ease;
-      z-index: 120;
-      border: 1px solid rgba(37,66,166,0.27);
-    }
-    
-    .nav-item:hover .dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-    
-    .dropdown-menu a {
-      display: block;
-      padding: 10px 15px;
-      color: var(--text-light);
-      text-decoration: none;
-      transition: all var(--transition-time) ease;
-    }
-    
-    .dropdown-menu a:hover {
-      background: var(--highlight-bg);
-    }
-
-    /* ========== 主要內容 ========== */
-    main {
-      padding: 30px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .section-title, .subtitle {
-      text-align: center;
-      font-size: 1.8rem;
-      margin-bottom: 30px;
-      text-shadow: 0 2px 8px rgba(25,50,104,0.27);
-    }
-
-    /* ========== 產品卡片 ========== */
-    .product-container {
-      width: 100%;
-      overflow-x: auto;
-      padding-bottom: 20px;
-      margin-bottom: 40px;
-      -webkit-overflow-scrolling: touch;
-    }
-    
-    .product-grid {
-      display: flex;
-      gap: 20px;
-      width: max-content;
-      padding: 10px 5px;
-    }
-    
-    .card {
-      background: linear-gradient(120deg, #263968 68%, #1a233c 100%);
-      border-radius: var(--border-radius);
-      padding: 25px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border: 1.5px solid rgba(51,72,119,0.33);
-      box-shadow: 0 5px 16px rgba(37,52,100,0.45);
-      transition: all var(--transition-time) ease;
-      width: 220px;
-      height: 300px;
-      flex-shrink: 0;
-    }
-    
-    .music-card {
-      background: linear-gradient(135deg, var(--apple-music-color) 70%, #d67a7e 100%);
-      border: 1.5px solid rgba(248,184,187,0.4);
-    }
-    
-    .card:hover {
-      transform: translateY(-5px);
-      border: 3px solid white;
-      box-shadow: 0 10px 25px rgba(37,52,100,0.5);
-    }
-    
-    .card img {
-      width: 160px;
-      height: 160px;
-      object-fit: contain;
-      background: white;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(25,50,104,0.3);
-      transition: transform var(--transition-time) ease;
-    }
-    
-    .card:hover img {
-      transform: scale(1.15);
-    }
-    
-    .card-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      text-align: center;
-      line-height: 1.4;
-      padding: 0 10px;
-    }
-
-    /* ========== 其他產品 ========== */
-    .other-product-container {
-      width: 100%;
-      overflow-x: auto;
-      padding-bottom: 20px;
-      -webkit-overflow-scrolling: touch;
-    }
-    
-    .other-product-grid {
-      display: flex;
-      gap: 20px;
-      width: max-content;
-      padding: 10px 5px;
-    }
-
-    /* ========== 聯絡表單 ========== */
-    .contact-section {
-      max-width: 500px;
-      margin: 50px auto;
-      padding: 30px;
-      background: rgba(30,37,59,0.98);
-      border-radius: var(--border-radius);
-      box-shadow: 0 5px 15px rgba(25,50,104,0.2);
-      text-align: center;
-    }
-    
-    .contact-title {
-      font-size: 1.8rem;
-      margin-bottom: 30px;
-      color: white;
-    }
-    
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-    }
-    
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      text-align: left;
-    }
-    
-    .form-label {
-      font-size: 1rem;
-      color: #ddd;
-      padding-left: 5px;
-    }
-    
-    .contact-form input,
-    .contact-form textarea {
-      padding: 14px 18px;
-      border-radius: 10px;
-      border: none;
-      font-size: 1.05rem;
-      background: rgba(255,255,255,0.1);
-      color: white;
-      width: 100%;
-    }
-    
-    .contact-form textarea {
-      min-height: 150px;
-      resize: vertical;
-    }
-    
-    .submit-btn {
-      background: var(--highlight-bg);
-      color: white;
-      font-weight: bold;
-      padding: 15px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all var(--transition-time) ease;
-      font-size: 1.1rem;
-      margin-top: 10px;
-    }
-    
-    .submit-btn:hover {
-      background: #3a6fe2;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(58,111,226,0.3);
-    }
-
-    /* ========== 付款方式 ========== */
-    .payment-section {
-      text-align: center;
-      margin: 40px 0;
-    }
-    
-    .payment-title {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      color: white;
-    }
-    
-    .payment-methods {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      flex-wrap: wrap;
-    }
-    
-    .payment-method {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform var(--transition-time) ease;
-    }
-    
-    .payment-method:hover {
-      transform: translateY(-5px);
-    }
-    
-    .payment-icon {
-      width: 60px;
-      height: 60px;
-      background: white;
-      border-radius: 50%;
-      padding: 10px;
-      object-fit: contain;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      margin-bottom: 10px;
-    }
-    
-    .payment-name {
-      font-size: 0.9rem;
-      color: #ccc;
-    }
-
-    /* ========== 頁腳 ========== */
-    footer {
-      background: rgba(24,26,32,0.98);
-      padding: 40px 20px;
-      text-align: center;
-      border-top: 1px solid rgba(37,66,166,0.07);
-    }
-    
-    .footer-content {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
-    
-    .footer-links a {
-      color: #aaa;
-      text-decoration: none;
-      transition: color 0.2s ease;
-      font-size: 0.95rem;
-    }
-    
-    .footer-links a:hover {
-      color: white;
-      text-decoration: underline;
-    }
-
-    /* ========== 響應式設計 ========== */
-    @media (max-width: 1024px) {
-      .logo-img {
-        height: 55px;
-        padding: 12px 25px;
-      }
-      
-      .card {
-        width: 200px;
-        height: 280px;
-      }
-      
-      .card img {
-        width: 140px;
-        height: 140px;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .header-bar {
-        height: 80px;
-        padding: 0 15px;
-      }
-      
-      .logo-img {
-        height: 50px;
-        padding: 10px 20px;
-      }
-      
-      .nav-bar {
-        gap: 10px;
-      }
-      
-      .nav-item {
-        font-size: 0.95rem;
-        padding: 6px 10px;
-      }
-      
-      .card {
-        width: 180px;
-        height: 260px;
-      }
-      
-      .card img {
-        width: 120px;
-        height: 120px;
-      }
-      
-      .card-title {
-        font-size: 1.2rem;
-      }
-      
-      .payment-methods {
-        gap: 20px;
-      }
-      
-      .payment-icon {
-        width: 50px;
-        height: 50px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .header-bar {
-        height: 70px;
-        padding: 0 10px;
-      }
-      
-      .logo-img {
-        height: 40px;
-        padding: 8px 15px;
-      }
-      
-      .nav-bar {
-        gap: 8px;
-      }
-      
-      .nav-item {
-        font-size: 0.9rem;
-        padding: 5px 8px;
-      }
-      
-      .dropdown-menu {
-        min-width: 120px;
-      }
-      
-      .card {
-        width: 160px;
-        height: 240px;
-      }
-      
-      .card img {
-        width: 100px;
-        height: 100px;
-      }
-      
-      .card-title {
-        font-size: 1.1rem;
-      }
-      
-      .contact-section {
-        padding: 25px;
-      }
-      
-      .contact-form input,
-      .contact-form textarea {
-        padding: 12px 15px;
-      }
-      
-      .payment-methods {
-        gap: 15px;
-      }
-      
-      .payment-icon {
-        width: 45px;
-        height: 45px;
-      }
-    }
-    
-    @media (max-width: 360px) {
-      .logo-img {
-        height: 35px;
-        padding: 6px 12px;
-      }
-      
-      .nav-item {
-        font-size: 0.85rem;
-      }
-      
-      .card {
-        width: 140px;
-        height: 220px;
-      }
-      
-      .card img {
-        width: 90px;
-        height: 90px;
-      }
-      
-      .footer-links {
-        gap: 15px;
-      }
-    }
-  </style>
+    <style>
+        :root {
+            --primary: #3a8ee2;
+            --primary-light: #5a9ef3;
+            --text: #ffffff;
+            --text-secondary: #a0aec0;
+            --bg: #1a1e1d;
+            --card-bg: rgba(27, 35, 34, 0.8);
+            --radius: 12px;
+            --radius-lg: 16px;
+            --transition: 0.3s;
+            --tap-target: 48px;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--text);
+            background: linear-gradient(135deg, #1a1e2d 0%, #1e2d2d 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        /* 動態背景元素 */
+        .bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(10vw, 10vh); }
+            50% { transform: translate(5vw, 15vh); }
+            75% { transform: translate(-5vw, 5vh); }
+        }
+        
+        /* 頁面容器 */
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* 頁眉樣式 - 手機優化 */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(26, 33, 32, 0.95);
+            backdrop-filter: blur(10px);
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            height: 35px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        /* 導航菜單 - 手機優化 */
+        .nav-menu {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: var(--radius);
+            transition: all var(--transition);
+            position: relative;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 50px;
+        }
+        
+        .nav-link i {
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+        
+        .nav-link span {
+            font-size: 0.7rem;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover::before {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            background: var(--primary);
+            box-shadow: 0 4px 10px rgba(58, 142, 226, 0.4);
+        }
+        
+        /* 英雄區域 - 手機優化 */
+        .hero {
+            padding: 80px 20px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff, #a0d1ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.3;
+            animation: fadeInUp 1s ease forwards;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards 0.3s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 按鈕樣式 */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 10px rgba(58, 142, 226, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(58, 142, 226, 0.4);
+        }
+        
+        /* 特色卡片 - 單列佈局 */
+        .features {
+            padding: 0 20px 40px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            padding-bottom: 8px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            animation: titleUnderline 1.5s ease forwards;
+        }
+        
+        @keyframes titleUnderline {
+            from { transform: translateX(-50%) scaleX(0); }
+            to { transform: translateX(-50%) scaleX(1); }
+        }
+        
+        .features-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            transform: translateY(30px);
+            opacity: 0;
+            animation: cardEntrance 1s ease forwards;
+        }
+        
+        @keyframes cardEntrance {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .feature-card:nth-child(1) { animation-delay: 0.3s; }
+        .feature-card:nth-child(2) { animation-delay: 0.5s; }
+        .feature-card:nth-child(3) { animation-delay: 0.7s; }
+        
+        .feature-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 6px 15px rgba(58, 142, 226, 0.5);
+        }
+        
+        .feature-icon i {
+            font-size: 1.3rem;
+            color: white;
+        }
+        
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        
+        .feature-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+        
+        /* 產品卡片 - 單列佈局 */
+        .products {
+            padding: 0 20px 40px;
+        }
+        
+        .products-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .product-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            transform: translateY(30px);
+            opacity: 0;
+            animation: cardEntrance 1s ease forwards;
+        }
+        
+        .product-card:nth-child(1) { animation-delay: 0.4s; }
+        .product-card:nth-child(2) { animation-delay: 0.6s; }
+        .product-card:nth-child(3) { animation-delay: 0.8s; }
+        .product-card:nth-child(4) { animation-delay: 1s; }
+        
+        .product-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .product-image-container {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 120px;
+        }
+        
+        .product-image {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .product-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-price {
+            color: var(--primary-light);
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        
+        .product-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .product-btn {
+            width: 100%;
+            padding: 10px;
+            font-size: 0.9rem;
+            max-width: 180px;
+            margin: 0 auto;
+        }
+        
+        .region-flag {
+            width: 24px;
+            height: 16px;
+            margin-right: 8px;
+            border-radius: 2px;
+        }
+        
+        /* Apple Music 專區 */
+        .music-section {
+            padding: 0 20px 40px;
+            text-align: center;
+        }
+        
+        .music-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            max-width: 500px;
+            margin: 0 auto;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: cardEntrance 1s ease forwards 0.5s;
+        }
+        
+        .music-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .music-image-container {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 120px;
+        }
+        
+        .music-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .music-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .music-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .music-price {
+            color: var(--primary-light);
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .music-btn {
+            width: 100%;
+            padding: 10px;
+            font-size: 0.9rem;
+            max-width: 180px;
+            margin: 0 auto;
+        }
+        
+        /* 頁尾樣式 */
+        .footer {
+            background: rgba(18, 20, 20, 0.98);
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+            opacity: 0.8;
+        }
+        
+        /* 平板電腦適配 */
+        @media (min-width: 600px) {
+            .header {
+                padding: 0 25px;
+                height: 70px;
+            }
+            
+            .logo {
+                height: 40px;
+            }
+            
+            .nav-link {
+                padding: 10px 15px;
+                font-size: 1rem;
+                flex-direction: row;
+                gap: 8px;
+            }
+            
+            .nav-link i {
+                margin-bottom: 0;
+            }
+            
+            .nav-link span {
+                font-size: 0.9rem;
+            }
+            
+            .hero {
+                padding: 100px 30px 60px;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .features {
+                padding: 0 30px 60px;
+                max-width: 1000px;
+                margin: 0 auto;
+            }
+            
+            .features-grid {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .feature-card {
+                width: calc(50% - 10px);
+                max-width: 300px;
+            }
+            
+            .products {
+                padding: 0 30px 60px;
+                max-width: 1000px;
+                margin: 0 auto;
+            }
+            
+            .products-grid {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .product-card {
+                width: calc(50% - 10px);
+                max-width: 300px;
+            }
+        }
+        
+        /* 桌面電腦適配 */
+        @media (min-width: 900px) {
+            .header {
+                padding: 0 30px;
+                height: 80px;
+            }
+            
+            .logo {
+                height: 45px;
+            }
+            
+            .nav-menu {
+                gap: 15px;
+            }
+            
+            .nav-link {
+                padding: 10px 20px;
+            }
+            
+            .feature-card {
+                width: calc(33.333% - 14px);
+            }
+            
+            .product-card {
+                width: calc(33.333% - 14px);
+            }
+        }
+    </style>
 </head>
-<body class="password-protected">
-  <!-- 密碼保護彈窗 -->
-  <div class="password-overlay">
-    <div class="password-modal">
-      <h2>請輸入訪問密碼</h2>
-      <input type="password" class="password-input" placeholder="輸入密碼" autofocus>
-      <button class="password-submit">確認</button>
-      <div class="password-error"></div>
-    </div>
-  </div>
-
-  <!-- 頁首導航 -->
-  <header class="header-bar">
-    <div class="logo-img-wrapper">
-      <img class="logo-img" src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/logo.png" 
-           alt="Gifto.Mo Logo">
-    </div>
+<body>
+    <!-- 動態背景元素 -->
+    <div class="bg-elements" id="bgElements"></div>
     
-    <nav class="nav-bar">
-      <div class="nav-item">
-        價錢 ▼
-        <div class="dropdown-menu">
-          <a href="#">中國區價錢</a>
-          <a href="#">港區價錢</a>
-          <a href="#">日區價錢</a>
-          <a href="#">美區價錢</a>
-        </div>
-      </div>
-      <div class="nav-item">
-        購買 ▼
-        <div class="dropdown-menu">
-          <a href="#">Apple Gift Card</a>
-          <a href="#">Apple Music</a>
-        </div>
-      </div>
-      <div class="nav-item">
-        聯絡我們 ▼
-        <div class="dropdown-menu">
-          <a href="#">WeChat: giftomo_macau</a>
-          <a href="mailto:gifto.mo.help@gmail.com">Email</a>
-          <a href="https://instagram.com/gifto.mo_macau" target="_blank">Instagram</a>
-        </div>
-      </div>
-    </nav>
-  </header>
+    <div class="page-container">
+        <!-- 頁眉導航 - 手機優化 -->
+        <header class="header">
+            <a href="https://gifto-mo.github.io/home.gifto.mo/">
+                <img class="logo" src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/logo.png" alt="Gifto.Mo Logo">
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="https://gifto-mo.github.io/home.gifto.mo/" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>首頁</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-gift"></i>
+                    <span>產品</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-tags"></i>
+                    <span>優惠</span>
+                </a>
+                <a href="contact.html" class="nav-link">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>聯絡</span>
+                </a>
+            </nav>
+        </header>
 
-  <!-- 主要內容 -->
-  <main>
-    <section>
-      <h1 class="section-title">Apple Gift Card</h1>
-      <div class="product-container">
-        <div class="product-grid">
-          <div class="card">
-            <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/china.png" alt="中國區 Apple 禮品卡">
-            <div class="card-title">中國區<br>Apple 禮品卡</div>
-          </div>
-          <div class="card">
-            <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/hk.png" alt="香港區 Apple 禮品卡">
-            <div class="card-title">香港區<br>Apple 禮品卡</div>
-          </div>
-          <div class="card">
-            <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/japan.png" alt="日本區 Apple 禮品卡">
-            <div class="card-title">日本區<br>Apple 禮品卡</div>
-          </div>
-          <div class="card">
-            <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us.png" alt="美國區 Apple 禮品卡">
-            <div class="card-title">美國區<br>Apple 禮品卡</div>
-          </div>
-        </div>
-      </div>
-    </section>
+        <!-- 英雄區域 -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">可靠的禮品卡及課金服務</h1>
+                <p class="hero-subtitle">Gifto.Mo 提供全球多地區Apple禮品卡、Apple Music會員卡及課金服務，安全可靠</p>
+            </div>
+        </section>
 
-    <section>
-      <h2 class="subtitle">Other Product</h2>
-      <div class="other-product-container">
-        <div class="other-product-grid">
-          <div class="card music-card">
-            <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us_applemusic.png" alt="Apple Music 會員">
-            <div class="card-title">Apple Music<br>會員</div>
-          </div>
-        </div>
-      </div>
-    </section>
+        <!-- 特色服務 -->
+        <section class="features">
+            <h2 class="section-title">我們的優勢</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">快速便捷</h3>
+                    <p class="feature-desc">線上購買，即時發送電子代碼，無需等待，立即充值</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="feature-title">多地區選擇</h3>
+                    <p class="feature-desc">中國、香港、日本、美國等多地區Apple禮品卡任您選擇</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">安全可靠</h3>
+                    <p class="feature-desc">安全加密，保障您的每一筆交易安全</p>
+                </div>
+            </div>
+        </section>
 
-    <!-- 聯絡表單區塊 -->
-    <section class="contact-section">
-      <h2 class="contact-title">聯絡我們</h2>
-      <form class="contact-form" action="https://formsubmit.co/gifto.mo.mail@gmail.com" method="POST">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://gifto-mo.github.io/home.gifto.mo/">
+        <!-- 熱門產品 -->
+        <section class="products" id="products">
+            <h2 class="section-title">Apple禮品卡</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/china.png" alt="中國區Apple禮品卡" class="product-image" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">
+                            <img src="https://flagcdn.com/w20/cn.png" class="region-flag" alt="中國" loading="lazy">
+                            中國區Apple禮品卡
+                        </h3>
+                        <div class="product-price">¥ 100 - ¥ 500</div>
+                        <p class="product-desc">適用於中國區Apple ID，可用於App Store、iTunes Store等服務</p>
+                        <a href="#" class="btn btn-primary product-btn">
+                            <i class="fas fa-shopping-cart"></i> 立即購買
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/hk.png" alt="香港區Apple禮品卡" class="product-image" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">
+                            <img src="https://flagcdn.com/w20/hk.png" class="region-flag" alt="香港" loading="lazy">
+                            香港區Apple禮品卡
+                        </h3>
+                        <div class="product-price">HK$ 100 - HK$ 500</div>
+                        <p class="product-desc">適用於香港區Apple ID，可用於App Store、iTunes Store等服務</p>
+                        <a href="#" class="btn btn-primary product-btn">
+                            <i class="fas fa-shopping-cart"></i> 立即購買
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/japan.png" alt="日本區Apple禮品卡" class="product-image" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">
+                            <img src="https://flagcdn.com/w20/jp.png" class="region-flag" alt="日本" loading="lazy">
+                            日本區Apple禮品卡
+                        </h3>
+                        <div class="product-price">¥ 1,000 - ¥ 5,000</div>
+                        <p class="product-desc">適用於日本區Apple ID，可用於App Store、iTunes Store等服務</p>
+                        <a href="#" class="btn btn-primary product-btn">
+                            <i class="fas fa-shopping-cart"></i> 立即購買
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us.png" alt="美國區Apple禮品卡" class="product-image" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">
+                            <img src="https://flagcdn.com/w20/us.png" class="region-flag" alt="美國" loading="lazy">
+                            美國區Apple禮品卡
+                        </h3>
+                        <div class="product-price">$ 10 - $ 100</div>
+                        <p class="product-desc">適用於美國區Apple ID，可用於App Store、iTunes Store等服務</p>
+                        <a href="#" class="btn btn-primary product-btn">
+                            <i class="fas fa-shopping-cart"></i> 立即購買
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
         
-        <div class="form-group">
-          <label for="name" class="form-label">您的名稱</label>
-          <input type="text" id="name" name="name" placeholder="請輸入您的名稱" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="email" class="form-label">電子郵件</label>
-          <input type="email" id="email" name="email" placeholder="請輸入您的電子郵件" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="message" class="form-label">您的訊息</label>
-          <textarea id="message" name="message" placeholder="請輸入您的訊息內容" required></textarea>
-        </div>
-        
-        <button type="submit" class="submit-btn">送出查詢</button>
-      </form>
-    </section>
+        <!-- Apple Music -->
+        <section class="music-section" id="apple-music">
+            <h2 class="section-title">Apple Music會員</h2>
+            <div class="music-card">
+                <div class="music-image-container">
+                    <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/us_applemusic.png" alt="Apple Music" class="product-image" loading="lazy">
+                </div>
+                <div class="music-content">
+                    <h3 class="music-title">Apple Music個人會員</h3>
+                    <p class="music-desc">享受超過9000萬首歌曲，無廣告無限暢聽，可在所有Apple設備上使用</p>
+                    <div class="music-price">MOP 50/月</div>
+                    <a href="#" class="btn btn-primary music-btn">
+                        <i class="fas fa-shopping-cart"></i> 立即購買
+                    </a>
+                </div>
+            </div>
+        </section>
 
-    <!-- 付款方式區塊 - 已添加mPay支付方式 -->
-    <section class="payment-section">
-      <h2 class="payment-title">支持的付款方式</h2>
-      <div class="payment-methods">
-        <div class="payment-method">
-          <img class="payment-icon" src="https://github.com/gifto-mo/home.gitfmo.mo./raw/main/payment_alipay.png" alt="Alipay">
-          <span class="payment-name">Alipay</span>
-        </div>
-        <div class="payment-method">
-          <img class="payment-icon" src="https://github.com/gifto-mo/home.gitfmo.mo./raw/main/payment_%20wechatpay.png" alt="WeChat Pay">
-          <span class="payment-name">WeChat Pay</span>
-        </div>
-        <div class="payment-method">
-          <img class="payment-icon" src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/payment_%20mpay.png" alt="mPay">
-          <span class="payment-name">mPay</span>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- 頁腳 - 已刪除特定版權文字 -->
-  <footer>
-    <div class="footer-content">
-      <p class="footer-small">
-        本網站與 Apple Inc.、Alipay、WeChat Pay、mPay 無任何關聯，相關商標均屬各自所有者。
-      </p>
-      <div class="footer-links">
-        <a href="#">服務條款</a>
-        <a href="#">隱私政策</a>
-        <a href="mailto:gifto.mo.help@gmail.com">聯絡我們</a>
-      </div>
+        <!-- 頁尾 -->
+        <footer class="footer">
+            <div class="footer-logo">
+                <img src="https://raw.githubusercontent.com/gifto-mo/home.gitfmo.mo./main/logo.png" alt="Gifto.Mo Logo" loading="lazy">
+            </div>
+        </footer>
     </div>
-  </footer>
 
-  <script>
-    // 密碼保護功能 - 每次訪問都需要輸入密碼
-    document.addEventListener('DOMContentLoaded', function() {
-      const password = "idontknow"; // 設置您的密碼
-      let attempts = 0;
-      const maxAttempts = 3;
-      const body = document.body;
-      const overlay = document.querySelector('.password-overlay');
-      const passwordInput = document.querySelector('.password-input');
-      const submitBtn = document.querySelector('.password-submit');
-      const errorMsg = document.querySelector('.password-error');
-      
-      // 每次頁面加載都顯示密碼輸入框
-      body.classList.add('password-protected');
-      overlay.style.display = 'flex';
-      
-      submitBtn.addEventListener('click', checkPassword);
-      passwordInput.addEventListener('keypress', function(e) {
-        if(e.key === 'Enter') {
-          checkPassword();
+    <script>
+        // 創建動態背景元素
+        function createBackground() {
+            const bgElements = document.getElementById('bgElements');
+            const colors = ['#3a8ee2', '#5a9ef3', '#4a6ee3'];
+            
+            // 減少背景元素數量以提升移動設備性能
+            const circleCount = window.innerWidth < 600 ? 3 : 5;
+            
+            for (let i = 0; i < circleCount; i++) {
+                const circle = document.createElement('div');
+                circle.classList.add('bg-circle');
+                
+                // 隨機大小 (移動設備上更小)
+                const size = window.innerWidth < 600 ? 
+                    Math.random() * 150 + 50 : 
+                    Math.random() * 300 + 100;
+                circle.style.width = `${size}px`;
+                circle.style.height = `${size}px`;
+                
+                // 隨機位置
+                circle.style.left = `${Math.random() * 100}%`;
+                circle.style.top = `${Math.random() * 100}%`;
+                
+                // 隨機顏色
+                circle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 隨機動畫延遲和持續時間
+                circle.style.animationDelay = `${Math.random() * 5}s`;
+                circle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                
+                bgElements.appendChild(circle);
+            }
         }
-      });
-      
-      function checkPassword() {
-        const inputPassword = passwordInput.value.trim();
         
-        if(inputPassword === password) {
-          // 密碼正確 - 不存儲任何狀態
-          body.classList.remove('password-protected');
-          overlay.style.display = 'none';
-        } else {
-          // 密碼錯誤
-          attempts++;
-          errorMsg.textContent = `密碼錯誤 (${attempts}/${maxAttempts})`;
-          passwordInput.value = '';
-          passwordInput.focus();
-          
-          if(attempts >= maxAttempts) {
-            errorMsg.textContent = "嘗試次數過多，將被重定向到Google...";
-            setTimeout(() => {
-              window.location.href = 'https://www.google.com';
-            }, 1000);
-          }
+        // 移動設備觸摸反饋優化
+        function setupTouchFeedback() {
+            const buttons = document.querySelectorAll('button, a.btn, .nav-link, .product-card');
+            
+            buttons.forEach(button => {
+                button.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.95)';
+                }, { passive: true });
+                
+                button.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                }, { passive: true });
+            });
         }
-      }
-    });
-  </script>
+        
+        // 滾動觸發動畫
+        function setupScrollAnimations() {
+            const animateOnScroll = (elements) => {
+                elements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.style.opacity = "1";
+                        element.style.transform = "translateY(0)";
+                    }
+                });
+            };
+            
+            const featureCards = document.querySelectorAll('.feature-card');
+            const productCards = document.querySelectorAll('.product-card');
+            const musicCard = document.querySelector('.music-card');
+            
+            window.addEventListener('scroll', () => {
+                animateOnScroll(featureCards);
+                animateOnScroll(productCards);
+                animateOnScroll([musicCard]);
+            });
+            
+            // 初始觸發一次
+            animateOnScroll(featureCards);
+            animateOnScroll(productCards);
+            animateOnScroll([musicCard]);
+        }
+        
+        // 頁面加載完成後初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createBackground();
+            setupTouchFeedback();
+            setupScrollAnimations();
+            
+            // 優化移動設備上的滾動行為
+            if ('scrollBehavior' in document.documentElement.style) {
+                document.documentElement.style.scrollBehavior = 'smooth';
+            }
+            
+            // 防止移動端滾動彈跳
+            document.body.addEventListener('touchmove', function(e) {
+                if (window.innerHeight >= document.documentElement.scrollHeight) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+        });
+        
+        // 橫豎屏切換時重新計算背景
+        window.addEventListener('orientationchange', function() {
+            setTimeout(() => {
+                document.getElementById('bgElements').innerHTML = '';
+                createBackground();
+            }, 300);
+        });
+    </script>
 </body>
 </html>
